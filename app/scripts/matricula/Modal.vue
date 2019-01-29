@@ -5,6 +5,7 @@
     :visible="value.dialog"
     light
     width="720px"
+    top="2vh"
     class="ufabc-element-dialog">
     <div v-loading="loading"
       element-loading="Carregando">
@@ -97,7 +98,7 @@
       <!-- Table -->
       <el-table
         :data="transformed"
-        max-height="250"
+        height="50vh"
         style="width: 100%"
         empty-text="Não há dados"
         :row-class-name="tableRowClassName"
@@ -246,7 +247,7 @@
           sortRef[turnoIndex] = (this.parsedDisciplina.turno == 'diurno') ? 'asc' : 'desc'
         }
 
-        this.kicksData = _.orderBy(this.kicksData, sortOrder, sortRef)
+        this.kicksData = _.uniqBy(_.orderBy(this.kicksData, sortOrder, sortRef), 'aluno_id')
       },
 
       removedFilter(value) {
@@ -268,7 +269,7 @@
         if(this.isReajuste) {
           return this.computeReajusteKicksClass(row, rowIndex)
         } else {
-          return this.computeKicksClass({row, rowIndex})
+          return this.computeKicksClass(row, rowIndex)
         }
       },
 
