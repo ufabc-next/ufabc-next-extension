@@ -15,11 +15,12 @@
   },
   "permissions": ["storage"],
   "host_permissions": [
-    "http://*.ufabc.edu.br/*",
-    "https://*.ufabc.edu.br/*",
-    "http://localhost:8000/*",
-    "http://*.ufabcnext.com/*",
-    "https://*.ufabcnext.com/*"
+    "http://aluno.ufabc.edu.br/",
+    "https://matricula.ufabc.edu.br/",
+    "http://localhost:8000/",
+    "http://api.ufabcnext.com/",
+    "https://dev.ufabcnext.com/",
+    "https://ufabcnext.com/"
   ],
   "content_scripts": [
     {

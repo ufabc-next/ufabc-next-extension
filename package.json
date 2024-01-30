@@ -7,7 +7,7 @@
     "serve": "node server/app.js",
     "start": "yarn build && yarn serve",
     "deploy": "caprover deploy",
-    "build": "yarn build:chrome",
+    "build": "pnpm build:chrome",
     "build:chrome": "gulp pack --production --vendor=chrome",
     "build:firefox": "gulp pack --production --vendor=firefox",
     "build:opera": "gulp pack --production --vendor=opera",
@@ -21,9 +21,7 @@
     "lint": "standard"
   },
   "standard": {
-    "globals": [
-      "chrome"
-    ]
+    "globals": ["chrome"]
   },
   "devDependencies": {
     "babel-cli": "6.x.x",
