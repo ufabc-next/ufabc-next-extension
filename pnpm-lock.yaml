@@ -97,7 +97,7 @@ dependencies:
     version: 2.5.17
   vue-loader:
     specifier: ^15.3.0
-    version: 15.11.1(babel-core@6.26.3)(css-loader@1.0.1)(lodash@4.17.21)(mustache@3.2.1)(vue-template-compiler@2.5.17)(webpack@3.12.0)
+    version: 15.11.1(babel-core@6.26.3)(css-loader@1.0.1)(lodash@4.17.21)(mustache@3.2.1)(prettier@3.2.4)(vue-template-compiler@2.5.17)(webpack@3.12.0)
   vue-style-loader:
     specifier: ^4.1.2
     version: 4.1.3
@@ -202,6 +202,12 @@ devDependencies:
   gulp-zip:
     specifier: ^4.x.x
     version: 4.2.0
+  oxlint:
+    specifier: ^0.2.6
+    version: 0.2.6
+  prettier:
+    specifier: ^3.2.4
+    version: 3.2.4
   require-dir:
     specifier: 0.x.x
     version: 0.3.2
@@ -244,6 +250,70 @@ packages:
       normalize-path: 2.1.1
       through2: 2.0.5
     dev: true
+
+  /@oxlint/darwin-arm64@0.2.6:
+    resolution: {integrity: sha512-hUVo2oBnicVYbNiTnaYdXKHDsg9wAnnHYfw9HOM3lsqAXkkmUo9DI3spaYa6TMWUVJ57iTtcR7RXquJ7nVXijQ==}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/darwin-x64@0.2.6:
+    resolution: {integrity: sha512-DBdoJhtCos8sumzlFuNt+vmKWu2NEah7bI2EtnZi+6VGJKJpf+T6oA/RADkmDZN2msRrppznCTEewgQRA/LkfQ==}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/linux-arm64-gnu@0.2.6:
+    resolution: {integrity: sha512-1uWKjDsVNpGQir8dyA5RymU4FwcJUD4GUBBPDeN7xLgeVnIGXcNWzZ4GSsHsSAGLHgA9JJKQc8iQY+uZpTYRAw==}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/linux-arm64-musl@0.2.6:
+    resolution: {integrity: sha512-Sjq9thO2roo2dF0IVk2BQ1NiK0pAhzaJPaY8LdVhWhJy5PZya+UgRxhqb7dMckRq0HSNww3MTqaOD48wLeKJfg==}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/linux-x64-gnu@0.2.6:
+    resolution: {integrity: sha512-iBwKXalx1l5/WpCDndJ+VQK3sbLcjZb+XcA2J5sJUfUlK6ua9+rf5bd6EMeVAb1fywlQPBkBya7kPDuJ43PPtw==}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/linux-x64-musl@0.2.6:
+    resolution: {integrity: sha512-aZDwMqS4lMPaWzlgA4N9Mw5W/uPQoOh/aCrnsjkub4P9xVoOA1KHoaA+gskdnRkZp2tgiUBOpqLs6tY6WPfqOA==}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/win32-arm64@0.2.6:
+    resolution: {integrity: sha512-kpA0v76i+qU8xLHu74KH1HaSsKdZeckf7gk1NKTDpAQklUoeae9lO0NKWuszpfSb1l1tvyRbqwWU94GfGMuCtA==}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@oxlint/win32-x64@0.2.6:
+    resolution: {integrity: sha512-Sh4ieKl5O6EWtwSA2pL5Pr7ixaMXiIiXT310qMBicboq/6QfAujCH7pN28pxtqDxbSckE1QiSZfAafuyddAKrQ==}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
 
   /@types/bluebird@3.5.42:
     resolution: {integrity: sha512-Jhy+MWRlro6UjVi578V/4ZGNfeCOcNCp0YaFNIUGFKlImowqwb1O/22wDVk3FDGMLqxdpOV3qQHD5fPEH4hK6A==}
@@ -7976,6 +8046,21 @@ packages:
       object-assign: 4.1.1
     dev: true
 
+  /oxlint@0.2.6:
+    resolution: {integrity: sha512-oT4Stz2Gr/9cWXtrSZSQ0g3DCd1BWqTejcXqmu6dU7TT/8JMa7rJr1liW632aJY/Ean9sGrFhwXXCCCyM29NlA==}
+    engines: {node: '>=14.*'}
+    hasBin: true
+    optionalDependencies:
+      '@oxlint/darwin-arm64': 0.2.6
+      '@oxlint/darwin-x64': 0.2.6
+      '@oxlint/linux-arm64-gnu': 0.2.6
+      '@oxlint/linux-arm64-musl': 0.2.6
+      '@oxlint/linux-x64-gnu': 0.2.6
+      '@oxlint/linux-x64-musl': 0.2.6
+      '@oxlint/win32-arm64': 0.2.6
+      '@oxlint/win32-x64': 0.2.6
+    dev: true
+
   /p-finally@1.0.0:
     resolution: {integrity: sha512-LICb2p9CB7FS+0eR1oqWnHhp0FljGLZCWBE9aix0Uye9W8LTQPwMTYVGWQWIw9RdQiDg4+epXQODwIYJtSJaow==}
     engines: {node: '>=4'}
@@ -8674,6 +8759,11 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /prettier@3.2.4:
+    resolution: {integrity: sha512-FWu1oLHKCrtpO1ypU6J0SbK2d9Ckwysq6bHj/uaCP26DxrPpppCLQRGVuqAxSTvhF00AcvDRyYrLNW7ocBhFFQ==}
+    engines: {node: '>=14'}
+    hasBin: true
 
   /pretty-bytes@4.0.2:
     resolution: {integrity: sha512-yJAF+AjbHKlxQ8eezMd/34Mnj/YTQ3i6kLzvVsH4l/BfIFtp444n0wVbnsn66JimZ9uBofv815aRp1zCppxlWw==}
@@ -11142,7 +11232,7 @@ packages:
     resolution: {integrity: sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==}
     dev: false
 
-  /vue-loader@15.11.1(babel-core@6.26.3)(css-loader@1.0.1)(lodash@4.17.21)(mustache@3.2.1)(vue-template-compiler@2.5.17)(webpack@3.12.0):
+  /vue-loader@15.11.1(babel-core@6.26.3)(css-loader@1.0.1)(lodash@4.17.21)(mustache@3.2.1)(prettier@3.2.4)(vue-template-compiler@2.5.17)(webpack@3.12.0):
     resolution: {integrity: sha512-0iw4VchYLePqJfJu9s62ACWUXeSqM30SQqlIftbYWM3C+jpPcEHKSPUZBLjSF9au4HTHQ/naF6OGnO3Q/qGR3Q==}
     peerDependencies:
       '@vue/compiler-sfc': ^3.0.8
@@ -11165,6 +11255,7 @@ packages:
       css-loader: 1.0.1(webpack@3.12.0)
       hash-sum: 1.0.2
       loader-utils: 1.4.2
+      prettier: 3.2.4
       vue-hot-reload-api: 2.3.4
       vue-style-loader: 4.1.3
       vue-template-compiler: 2.5.17
