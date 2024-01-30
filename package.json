@@ -18,12 +18,8 @@
     "dev:firefox": "gulp --watch --vendor=firefox",
     "dev:opera": "gulp --watch --vendor=opera",
     "dev:edge": "gulp --watch --vendor=edge",
-    "lint": "oxlint -D all"
-  },
-  "standard": {
-    "globals": [
-      "chrome"
-    ]
+    "lint": "oxlint -D all",
+    "lint:fix": "oxlint -D all --fix"
   },
   "devDependencies": {
     "babel-cli": "6.x.x",
