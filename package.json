@@ -19,7 +19,9 @@
     "dev:opera": "gulp --watch --vendor=opera",
     "dev:edge": "gulp --watch --vendor=edge",
     "lint": "standard",
+    "dev:tsup": "rimraf extension/dev && run-p dev:tsup:*",
     "dev:tsup:prepare": "node tasks/prepare.dev.mjs dev",
+    "dev:tsup:js": "yarn run build:tsup:dev --watch src",
     "build:tsup:dev": "tsup src/scripts/background.js src/scripts/contentscript.js --target=node20 --format iife --out-dir extension/dev/dist --no-splitting --onSuccess 'node tasks/mvsw.dev.mjs'",
     "build:tsup:prod": "tsup src/scripts/background.js src/scripts/contentscript.js --target=node20 --minify --format iife --out-dir extension/prod/dist --no-splitting --onSuccess 'node tasks/mvsw.prod.mjs'",
     "build:tsup": "NODE_ENV=prod run-s clear build:web build:prepare build:tsup:prod"
@@ -59,6 +61,7 @@
     "gulp-zip": "^4.x.x",
     "npm-run-all": "^4.1.5",
     "require-dir": "0.x.x",
+    "rimraf": "^5.0.5",
     "sass": "^1.59.3",
     "standard": "^10.0.2",
     "tsup": "^8.0.1",
