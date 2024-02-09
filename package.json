@@ -18,7 +18,10 @@
     "dev:firefox": "gulp --watch --vendor=firefox",
     "dev:opera": "gulp --watch --vendor=opera",
     "dev:edge": "gulp --watch --vendor=edge",
-    "lint": "standard"
+    "lint": "standard",
+    "build:tsup:dev": "tsup src/scripts/background.js src/scripts/contentscript.js --target=node20 --format iife --out-dir extension/dev/dist --no-splitting --onSuccess 'node tasks/mvsw.dev.mjs'",
+    "build:tsup:prod": "tsup src/scripts/background.js src/scripts/contentscript.js --target=node20 --minify --format iife --out-dir extension/prod/dist --no-splitting --onSuccess 'node tasks/mvsw.prod.mjs'",
+    "build:tsup": "NODE_ENV=prod run-s clear build:web build:prepare build:tsup:prod"
   },
   "standard": {
     "globals": [
@@ -52,9 +55,12 @@
     "gulp-tag-version": "1.x.x",
     "gulp-util": "3.x.x",
     "gulp-zip": "^4.x.x",
+    "npm-run-all": "^4.1.5",
     "require-dir": "0.x.x",
     "sass": "^1.59.3",
     "standard": "^10.0.2",
+    "tsup": "^8.0.1",
+    "tsx": "^4.7.0",
     "vinyl-named": "1.x.x",
     "webpack": "3.x.x",
     "webpack-stream": "3.x.x",
