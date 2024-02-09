@@ -1,18 +1,27 @@
 // generate stub index.html files for dev entry
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { execSync } from "node:child_process";
 import { resolve } from "node:path";
 import { watch } from "chokidar";
+import { existsSync } from "node:fs";
+import { EsmDirname } from "./utils.mjs";
 
-const resolvePath = (...args) => resolve(import.meta.dirname, "..", ...args);
+const resolvePath = (...args) => resolve(EsmDirname, "..", ...args);
 const PORT = 6000;
 const isDev = process.env.NODE_ENV === "prod";
+
+const ensureDir = async (dir) => {
+  if (!existsSync(dir)) {
+    await mkdir(dir, { recursive: true });
+  }
+};
+
 async function stubHtml() {
   const views = ["popup", "matricula"];
 
   for (const view of views) {
-    const resolvedPath = resolvePath(`src/${view}/index.html`);
-    let data = await readFile(resolvedPath, "utf-8");
+    await ensureDir(resolvePath(`extension/dev/${view}`));
+    let data = await readFile(resolvePath(`src/${view}/index.html`), "utf-8");
     data = data
       .replace('"./main.ts"', `"http://localhost:${PORT}/${view}/main.ts"`)
       .replace(

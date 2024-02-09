@@ -1,10 +1,20 @@
 import { writeFile } from "node:fs/promises";
-import { getManifest } from "../src/getManifest.js";
+import { closeSync, existsSync, openSync } from "node:fs";
+import { getManifest } from "../src/getManifest.mjs";
+import { resolve } from "node:path";
+import { EsmDirname } from "./utils.mjs";
 
-const resolvePath = (...args) => resolve(import.meta.dirname, "..", ...args);
+const resolvePath = (...args) => resolve(EsmDirname, "..", ...args);
+const ensureFile = async (filePath) => {
+  closeSync(openSync(filePath, "w"));
+};
 
 export async function writeManifest() {
   const manifest = await getManifest();
+
+  const normalizedPath = resolvePath("extension/dev/manifest.json");
+
+  await ensureFile(normalizedPath);
   await writeFile(
     resolvePath("extension/dev/manifest.json"),
     JSON.stringify(manifest, null, 2)
