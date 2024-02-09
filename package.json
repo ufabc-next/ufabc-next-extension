@@ -19,6 +19,7 @@
     "dev:opera": "gulp --watch --vendor=opera",
     "dev:edge": "gulp --watch --vendor=edge",
     "lint": "standard",
+    "dev:tsup:prepare": "node tasks/prepare.dev.mjs dev",
     "build:tsup:dev": "tsup src/scripts/background.js src/scripts/contentscript.js --target=node20 --format iife --out-dir extension/dev/dist --no-splitting --onSuccess 'node tasks/mvsw.dev.mjs'",
     "build:tsup:prod": "tsup src/scripts/background.js src/scripts/contentscript.js --target=node20 --minify --format iife --out-dir extension/prod/dist --no-splitting --onSuccess 'node tasks/mvsw.prod.mjs'",
     "build:tsup": "NODE_ENV=prod run-s clear build:web build:prepare build:tsup:prod"
@@ -34,6 +35,7 @@
     "babel-loader": "7.x.x",
     "babel-preset-env": "1.x.x",
     "chai": "4.x.x",
+    "chokidar": "^3.6.0",
     "chromereload": "0.x.x",
     "debounce": "1.x.x",
     "del": "3.x.x",
