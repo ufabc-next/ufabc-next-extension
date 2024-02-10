@@ -1,6 +1,6 @@
 import pkg from "../package.json" with { type: "json" };
 
-const isDev = process.env.NODE_ENV === "prod";
+const isDev = process.env.NODE_ENV !== "prod";
 
 export async function getManifest() {
   // update this file to update this manifest.json
@@ -11,8 +11,8 @@ export async function getManifest() {
     version: pkg.version,
     description: pkg.description,
     icons: {
-      16: "./images/icon-16.png",
-      128: "./images/icon-128.png",
+      16: "./assets/icon-16.png",
+      128: "./assets/icon-128.png",
     },
     background: {
       service_worker: "background.js",
@@ -28,7 +28,7 @@ export async function getManifest() {
     content_scripts: [
       {
         all_frames: true,
-        js: ["scripts/contentscript.js"],
+        js: ["contentscript.js"],
         matches: [
           "http://*.ufabc.edu.br/*",
           "https://*.ufabc.edu.br/*",
@@ -51,11 +51,11 @@ export async function getManifest() {
     },
     action: {
       default_icon: {
-        19: "images/icon-19.png",
-        38: "images/icon-38.png",
+        19: "assets/icon-19.png",
+        38: "assets/icon-38.png",
       },
-      default_title: "UFABC Matricula",
-      default_popup: "pages/popup.html",
+      default_title: "Next Extension",
+      default_popup: "Popup/index.html",
     },
     content_security_policy: {
       extension_pages: "script-src 'self'; object-src 'self'",
@@ -87,7 +87,7 @@ export async function getManifest() {
 
   if (isDev) {
     manifest.content_security_policy = {
-      extension_pages: `script-src 'self' http://localhost:${8080}; object-src 'self'`,
+      extension_pages: `script-src 'self' http://localhost:${6000}; object-src 'self'`,
     };
   }
 
