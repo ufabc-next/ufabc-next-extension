@@ -31,7 +31,7 @@ export default defineConfig(({ command }) => {
       sourcemap: isDev ? "inline" : false,
       rollupOptions: {
         input: {
-          popup: resolvePath("src/pages/popup.html"),
+          popup: resolvePath("Popup/index.html"),
         },
       },
     },

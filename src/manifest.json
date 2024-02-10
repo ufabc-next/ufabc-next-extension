@@ -10,7 +10,7 @@
     "128": "images/icon-128.png"
   },
   "background": {
-    "service_worker": "scripts/background.js"
+    "service_worker": "background.js"
   },
   "permissions": ["storage"],
   "host_permissions": [
@@ -27,7 +27,7 @@
   "content_scripts": [
     {
       "all_frames": true,
-      "js": ["scripts/contentscript.js"],
+      "js": ["contentscript.js"],
       "matches": [
         "http://*.ufabc.edu.br/*",
         "https://*.ufabc.edu.br/*",
@@ -54,7 +54,7 @@
       "38": "images/icon-38.png"
     },
     "default_title": "UFABC Matricula",
-    "default_popup": "pages/popup.html"
+    "default_popup": "./Popup/index.html"
   },
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
