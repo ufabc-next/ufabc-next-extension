@@ -8,6 +8,8 @@ const EsmDirname = dirname(fileURLToPath(import.meta.url));
 const PORT = 6000;
 const resolvePath = (...args) => resolve(EsmDirname, ...args);
 
+console.log(resolvePath("views/Popup/index.html"));
+
 export default defineConfig(({ command }) => {
   const isDev = command === "serve";
 
@@ -31,7 +33,7 @@ export default defineConfig(({ command }) => {
       sourcemap: isDev ? "inline" : false,
       rollupOptions: {
         input: {
-          popup: resolvePath("Popup/index.html"),
+          popup: resolvePath("src/views/Popup/index.html"),
         },
       },
     },

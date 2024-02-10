@@ -7,3 +7,5 @@ export const EsmDirname = dirname(fileURLToPath(import.meta.url));
 export function logger(name, message) {
   console.log(black(bgCyan(` ${name} `)), message);
 }
+
+export const PORT = 6000;

@@ -1,6 +1,6 @@
 <template>
   <div class="ufabc-next-popup">
-    <img src="../images/logo.svg" width="150" height="33" />
+    <img src="../../images/logo.svg" width="150" height="33" />
 
     <div class="intro">
       <div class="loading" v-if="loading">
@@ -79,8 +79,8 @@
   </div>
 </template>
 <script>
-import Utils from "../utils/extensionUtils";
-import { setupStorage } from "../utils/setupStorage";
+import Utils from "../../utils/extensionUtils";
+import { setupStorage } from "../../utils/setupStorage";
 
 setupStorage();
 

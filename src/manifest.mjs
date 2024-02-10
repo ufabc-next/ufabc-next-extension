@@ -55,7 +55,7 @@ export async function getManifest() {
         38: "assets/icon-38.png",
       },
       default_title: "Next Extension",
-      default_popup: "Popup/index.html",
+      default_popup: "./views/Popup/index.html",
     },
     content_security_policy: {
       extension_pages: "script-src 'self'; object-src 'self'",
