@@ -19,8 +19,9 @@
     "dev:opera": "gulp --watch --vendor=opera",
     "dev:edge": "gulp --watch --vendor=edge",
     "lint": "standard",
-    "dev:tsup": "rimraf extension/dev && run-p dev:tsup:*",
+    "dev:tsup": "run-p dev:tsup:*",
     "dev:tsup:prepare": "node tasks/prepare.dev.mjs dev",
+    "dev:tsup:web": "vite",
     "dev:tsup:js": "yarn run build:tsup:dev --watch src",
     "build:tsup:dev": "tsup src/scripts/background.js src/scripts/contentscript.js --target=node20 --format iife --out-dir extension/dev/dist --no-splitting --onSuccess 'node tasks/mvsw.dev.mjs'",
     "build:tsup:prod": "tsup src/scripts/background.js src/scripts/contentscript.js --target=node20 --minify --format iife --out-dir extension/prod/dist --no-splitting --onSuccess 'node tasks/mvsw.prod.mjs'",
@@ -32,6 +33,7 @@
     ]
   },
   "devDependencies": {
+    "@vitejs/plugin-vue2": "^2.3.1",
     "babel-cli": "6.x.x",
     "babel-core": "6.x.x",
     "babel-loader": "7.x.x",
@@ -67,6 +69,7 @@
     "tsup": "^8.0.1",
     "tsx": "^4.7.0",
     "vinyl-named": "1.x.x",
+    "vite": "^5.1.1",
     "webpack": "3.x.x",
     "webpack-stream": "3.x.x",
     "yargs": "^8.x.x"
@@ -101,7 +104,7 @@
     "toastify-js": "^1.9.0",
     "toastr": "^2.1.4",
     "url-loader": "^1.1.2",
-    "vue": "2.5.17",
+    "vue": "2.7.0",
     "vue-loader": "^15.3.0",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "2.5.17",
