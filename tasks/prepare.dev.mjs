@@ -53,7 +53,7 @@ if (isDev) {
   watch(resolvePath("src/**/*.html")).on("change", () => {
     stubHtml();
   });
-  watch([resolvePath("src/getManifest.mjs"), resolvePath("package.json")]).on(
+  watch([resolvePath("src/manifest.mjs"), resolvePath("package.json")]).on(
     "change",
     () => {
       writeManifest();

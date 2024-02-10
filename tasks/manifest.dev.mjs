@@ -1,6 +1,6 @@
 import { writeFile } from "node:fs/promises";
 import { ensureFile } from "fs-extra";
-import { getManifest } from "../src/getManifest.mjs";
+import { getManifest } from "../src/manifest.mjs";
 import { resolve } from "node:path";
 import { EsmDirname, logger } from "./utils.mjs";
 
