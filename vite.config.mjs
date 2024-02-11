@@ -5,7 +5,7 @@ import Vue2 from "@vitejs/plugin-vue2";
 
 const EsmDirname = dirname(fileURLToPath(import.meta.url));
 
-const PORT = 6000;
+const PORT = 5001;
 const resolvePath = (...args) => resolve(EsmDirname, ...args);
 
 console.log(resolvePath("views/Popup/index.html"));

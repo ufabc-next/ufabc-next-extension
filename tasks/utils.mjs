@@ -8,4 +8,4 @@ export function logger(name, message) {
   console.log(black(bgCyan(` ${name} `)), message);
 }
 
-export const PORT = 6000;
+export const PORT = 5001;

@@ -87,7 +87,7 @@ export async function getManifest() {
 
   if (isDev) {
     manifest.content_security_policy = {
-      extension_pages: `script-src 'self' http://localhost:${6000}; object-src 'self'`,
+      extension_pages: `script-src 'self' http://localhost:${5001}; object-src 'self'`,
     };
   }
 
