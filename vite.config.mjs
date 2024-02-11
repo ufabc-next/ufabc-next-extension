@@ -8,8 +8,6 @@ const EsmDirname = dirname(fileURLToPath(import.meta.url));
 const PORT = 5001;
 const resolvePath = (...args) => resolve(EsmDirname, ...args);
 
-console.log(resolvePath("views/Popup/index.html"));
-
 export default defineConfig(({ command }) => {
   const isDev = command === "serve";
 

@@ -11,8 +11,8 @@
     "build": "NODE_ENV=prod run-s clear build:web build:prepare build:prod",
     "build:prepare": "node tasks/prepare.prod.mjs build",
     "build:web": "vite build",
-    "build:dev": "tsup src/scripts/background.js src/scripts/contentscript.js --target=node20 --format iife --out-dir extension/dev/dist --no-splitting --onSuccess 'node tasks/mvsw.dev.mjs'",
-    "build:prod": "tsup src/scripts/background.js src/scripts/contentscript.js --target=node20 --minify --format iife --out-dir extension/prod/dist --no-splitting --onSuccess 'node tasks/mvsw.prod.mjs'",
+    "build:dev": "tsup src/scripts/background.js src/scripts/contentscript.js --target=node20 --format iife --out-dir extension/dev/dist --no-splitting --onSuccess 'node --no-warnings=ExperimentalWarning tasks/mvsw.dev.mjs'",
+    "build:prod": "tsup src/scripts/background.js src/scripts/contentscript.js --target=node20 --minify --format iife --out-dir extension/prod/dist --no-splitting --onSuccess 'node --no-warnings=ExperimentalWarning tasks/mvsw.prod.mjs'",
     "clear": "rimraf extension/prod"
   },
   "standard": {
