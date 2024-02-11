@@ -6,9 +6,9 @@ import { NextAPI } from "../services/NextAPI";
 import Axios from "axios";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
-const loading = require("../images/loading.svg");
-const errorSVG = require("../images/error.svg");
-const logoWhite = require("../images/logo-white.svg");
+const loading = require("../assets/loading.svg");
+const errorSVG = require("../assets/error.svg");
+const logoWhite = require("../assets/logo-white.svg");
 
 const nextApi = NextAPI();
 

@@ -3,8 +3,7 @@ import { cp, rename, rm } from "node:fs/promises";
 
 (async () => {
   try {
-    console.log(resolve("src/images"));
-    await cp(resolve("src/images"), resolve("extension/prod/assets"), {
+    await cp(resolve("src/assets"), resolve("extension/prod/assets"), {
       recursive: true,
     });
     await rename(

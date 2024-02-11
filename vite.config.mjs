@@ -1,4 +1,4 @@
-import { resolve, dirname } from "node:path";
+import { resolve, dirname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 import Vue2 from "@vitejs/plugin-vue2";
@@ -41,8 +41,11 @@ export default defineConfig(({ command }) => {
         name: "assets-rewrite",
         enforce: "post",
         apply: "build",
-        transformIndexHtml(html) {
-          return html.replace(/"\/assets\//g, '"../images/');
+        transformIndexHtml(html, { path }) {
+          return html.replace(
+            /"\/assets\//g,
+            `"${relative(dirname(path), "/assets")}/`
+          );
         },
       },
     ],

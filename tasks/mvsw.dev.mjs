@@ -4,7 +4,7 @@ import { logger } from "./utils.mjs";
 
 (async () => {
   try {
-    await cp(resolve("src/images"), resolve("extension/dev/assets"), {
+    await cp(resolve("src/assets"), resolve("extension/dev/assets"), {
       recursive: true,
     });
     await rename(

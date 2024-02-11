@@ -64,7 +64,7 @@ export async function getManifest() {
       {
         resources: [
           "components/*",
-          "images/*",
+          "assets/*",
           "lib/*",
           "pages/*",
           "scripts/*",
