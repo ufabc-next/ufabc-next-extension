@@ -49,8 +49,6 @@ function Matricula() {
     "Transformações nos Seres Vivos e Ambiente":
       "Biodiversidade: Interações entre organismos e ambiente",
     "Transformações Bioquímicas":
-      "Bioquímica: estrutura, propriedade e funções de Biomoléculas",
-    "Transformações Bioquímicas":
       "Bioquímica: Estrutura, Propriedade e Funções de Biomoléculas",
     "Origem da Vida e Diversidade dos Seres Vivos":
       "Evolução e Diversificação da Vida na Terra",

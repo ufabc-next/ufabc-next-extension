@@ -1,5 +1,5 @@
-import $ from 'jquery'
-import _ from 'lodash'
+import $ from "jquery";
+import _ from "lodash";
 
 // chrome.storage.local.get(function (items) {
 //   var users = [];
@@ -17,13 +17,18 @@ import _ from 'lodash'
 //   }
 // })
 
-import Vue from 'vue';
-import App from '../views/popup.vue';
+import Vue from "vue";
+import Vuetify from "vuetify";
+import "../../styles/main.css";
+
+import Popup from "./Popup.vue";
+
+Vue.use(Vuetify);
 
 var app = new Vue({
-  el: '#app',
-  data:{
-    name:'popup-ufabc-matricula-extension'
+  el: "#app",
+  data: {
+    name: "popup-next-extension",
   },
-  render: h =>h(App)
-})
+  render: (h) => h(Popup),
+});

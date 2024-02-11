@@ -1,11 +1,11 @@
-import { resolve, dirname } from "node:path";
+import { resolve, dirname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 import Vue2 from "@vitejs/plugin-vue2";
 
 const EsmDirname = dirname(fileURLToPath(import.meta.url));
 
-const PORT = 6000;
+const PORT = 5001;
 const resolvePath = (...args) => resolve(EsmDirname, ...args);
 
 export default defineConfig(({ command }) => {
@@ -31,7 +31,7 @@ export default defineConfig(({ command }) => {
       sourcemap: isDev ? "inline" : false,
       rollupOptions: {
         input: {
-          popup: resolvePath("src/pages/popup.html"),
+          popup: resolvePath("src/views/Popup/index.html"),
         },
       },
     },
@@ -41,8 +41,11 @@ export default defineConfig(({ command }) => {
         name: "assets-rewrite",
         enforce: "post",
         apply: "build",
-        transformIndexHtml(html) {
-          return html.replace(/"\/assets\//g, '"../images/');
+        transformIndexHtml(html, { path }) {
+          return html.replace(
+            /"\/assets\//g,
+            `"${relative(dirname(path), "/assets")}/`
+          );
         },
       },
     ],

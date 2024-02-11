@@ -1,10 +1,10 @@
 import { resolve } from "node:path";
 import { cp, rename, rm } from "node:fs/promises";
+import { logger } from "./utils.mjs";
 
 (async () => {
   try {
-    console.log(resolve("src/images"));
-    await cp(resolve("src/images"), resolve("extension/dev/assets"), {
+    await cp(resolve("src/assets"), resolve("extension/dev/assets"), {
       recursive: true,
     });
     await rename(
@@ -16,7 +16,7 @@ import { cp, rename, rm } from "node:fs/promises";
       resolve("extension/dev/contentscript.js")
     );
     await rm(resolve("extension/dev/dist"), { recursive: true });
-    console.log("sucessfuly built worker");
+    logger("BUILD:SW", "Moved service-worker success!");
   } catch (error) {
     console.error("error moving files", error);
   }
