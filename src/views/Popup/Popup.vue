@@ -78,54 +78,46 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
+import { onMounted, ref } from "vue";
 import { NextStorage } from "../../services/NextStorage";
 import { setupStorageESM } from "../../utils/setupStorageESM";
 
 setupStorageESM();
 
-export default {
-  name: "App",
+const students = ref(null);
+const loading = ref(false);
+const error = ref(null);
 
-  data() {
-    return {
-      students: null,
-      loading: false,
-      error: false,
-    };
-  },
+onMounted(() => {
+  loading.value = true;
+  const DELAY = 2_000;
+  setTimeout(() => useUsersStorage(), DELAY);
+});
 
-  created() {
-    this.loading = true;
-    setTimeout(() => this.fetch(), 2000);
-  },
+const useUsersStorage = async () => {
+  loading.value = true;
+  error.value = false;
 
-  methods: {
-    async fetch() {
-      this.loading = true;
-      this.error = false;
+  try {
+    students.value = await NextStorage.getItem("ufabc-extension-students");
+    error.value = false;
+  } catch (err) {
+    error.value = true;
+  }
+  loading.value = false;
+};
 
-      try {
-        this.students = await NextStorage.getItem("ufabc-extension-students");
-        this.error = false;
-      } catch (err) {
-        this.error = true;
-      }
-      this.loading = false;
-    },
+const formatDate = (date) => {
+  if (!date) return;
 
-    formatDate(date) {
-      if (!date) return;
-
-      let d = new Date(date);
-      const day = (d.getDate() < 10 ? "0" : "") + d.getDate();
-      const month = (d.getMonth() < 10 ? "0" : "") + (d.getMonth() + 1);
-      const year = d.getFullYear();
-      const hour = (d.getHours() < 10 ? "0" : "") + d.getHours();
-      const minutes = (d.getMinutes() < 10 ? "0" : "") + d.getMinutes();
-      return day + "/" + month + "/" + year + " " + hour + ":" + minutes;
-    },
-  },
+  let d = new Date(date);
+  const day = (d.getDate() < 10 ? "0" : "") + d.getDate();
+  const month = (d.getMonth() < 10 ? "0" : "") + (d.getMonth() + 1);
+  const year = d.getFullYear();
+  const hour = (d.getHours() < 10 ? "0" : "") + d.getHours();
+  const minutes = (d.getMinutes() < 10 ? "0" : "") + d.getMinutes();
+  return `${day}/${month}/${year} ${hour}:${minutes}`;
 };
 </script>
 <style scoped>
