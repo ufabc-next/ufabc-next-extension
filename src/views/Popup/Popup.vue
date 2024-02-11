@@ -79,10 +79,10 @@
   </div>
 </template>
 <script>
-import Utils from "../../utils/extensionUtils";
-import { setupStorage } from "../../utils/setupStorage";
+import { NextStorage } from "../../services/NextStorage";
+import { setupStorageESM } from "../../utils/setupStorageESM";
 
-setupStorage();
+setupStorageESM();
 
 export default {
   name: "App",
@@ -106,7 +106,7 @@ export default {
       this.error = false;
 
       try {
-        this.students = await Utils.storage.getItem("ufabc-extension-students");
+        this.students = await NextStorage.getItem("ufabc-extension-students");
         this.error = false;
       } catch (err) {
         this.error = true;
