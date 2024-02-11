@@ -1,9 +1,8 @@
 <template>
   <div class="ufabc-next-popup">
-    <img src="../images/logo.svg" width="150" height="33" />
+    <img src="/assets/logo.svg" width="150" height="33" />
 
     <div class="intro">
-
       <div class="loading" v-if="loading">
         <v-progress-circular
           :size="32"
@@ -19,7 +18,8 @@
       <div class="error" v-else-if="error">
         Aconteceu um erro ao carregar suas informações. 😬
         <br /><br />
-        Caso o error persistir, entre em contato conosco pelo <a href='https://facebook.com/ufabcnext' target='_blank'>Facebook</a>
+        Caso o error persistir, entre em contato conosco pelo
+        <a href="https://facebook.com/ufabcnext" target="_blank">Facebook</a>
 
         <div class="retry-button">
           <v-btn color="#2E7EED" dark @click="fetch()">Recarregar</v-btn>
@@ -27,9 +27,7 @@
       </div>
 
       <div v-else-if="students && students.length">
-        <div class="intro-student">
-          Você tem salvo os seguintes dados:
-        </div>
+        <div class="intro-student">Você tem salvo os seguintes dados:</div>
         <div class="student" v-for="student in students" :key="student.name">
           <div class="student-top">
             <div class="student-name">{{ student.name }}</div>
@@ -48,78 +46,87 @@
               </div>
             </div>
           </template>
-          <div class="student-last-update">Última atualização: {{ formatDate(student.lastUpdate) }}</div>
+          <div class="student-last-update">
+            Última atualização: {{ formatDate(student.lastUpdate) }}
+          </div>
         </div>
 
         <div class="student-update">
-          <a href='https://aluno.ufabc.edu.br/fichas_individuais' target='_blank'>Atualizar dados agora</a>
+          <a
+            href="https://aluno.ufabc.edu.br/fichas_individuais"
+            target="_blank"
+            >Atualizar dados agora</a
+          >
         </div>
       </div>
 
       <template v-else>
         <p>Seja bem-vindo à extensão do UFABC Next.</p>
-        <p>Parece que nós não temos suas informações, <a href='https://aluno.ufabc.edu.br/' target='_blank'>vamos carregá-las?</a></p>
+        <p>
+          Parece que nós não temos suas informações,
+          <a href="https://aluno.ufabc.edu.br/" target="_blank"
+            >vamos carregá-las?</a
+          >
+        </p>
       </template>
 
       <div class="extension-troubleshooting">
-        <a href='https://bit.ly/extensao-problemas' target='_blank'>Está com problemas com a extensão? <br />Clique aqui</a>
+        <a href="https://bit.ly/extensao-problemas" target="_blank"
+          >Está com problemas com a extensão? <br />Clique aqui</a
+        >
       </div>
     </div>
   </div>
 </template>
 <script>
-import Vue from 'vue'
-import Vuetify from 'vuetify'
-Vue.use(Vuetify)
+import { NextStorage } from "../../services/NextStorage";
+import { setupStorageESM } from "../../utils/setupStorageESM";
 
-import Utils from '../utils/extensionUtils'
-import { setupStorage } from '../utils/setupStorage'
+setupStorageESM();
 
-setupStorage()
+export default {
+  name: "App",
 
-  export default {
-    name: 'App',
+  data() {
+    return {
+      students: null,
+      loading: false,
+      error: false,
+    };
+  },
 
-    data() {
-      return {
-        students: null,
-        loading: false,
-        error: false,
+  created() {
+    this.loading = true;
+    setTimeout(() => this.fetch(), 2000);
+  },
+
+  methods: {
+    async fetch() {
+      this.loading = true;
+      this.error = false;
+
+      try {
+        this.students = await NextStorage.getItem("ufabc-extension-students");
+        this.error = false;
+      } catch (err) {
+        this.error = true;
       }
+      this.loading = false;
     },
 
-    created() {
-      this.loading = true
-      setTimeout(() => this.fetch(), 2000)
+    formatDate(date) {
+      if (!date) return;
+
+      let d = new Date(date);
+      const day = (d.getDate() < 10 ? "0" : "") + d.getDate();
+      const month = (d.getMonth() < 10 ? "0" : "") + (d.getMonth() + 1);
+      const year = d.getFullYear();
+      const hour = (d.getHours() < 10 ? "0" : "") + d.getHours();
+      const minutes = (d.getMinutes() < 10 ? "0" : "") + d.getMinutes();
+      return day + "/" + month + "/" + year + " " + hour + ":" + minutes;
     },
-
-    methods: {
-      async fetch() {
-        this.loading = true
-        this.error = false
-
-        try {
-          this.students = await Utils.storage.getItem('ufabc-extension-students')
-          this.error = false
-        } catch(err) {
-          this.error = true
-        }
-        this.loading = false
-      },
-
-      formatDate(date) {
-        if(!date) return
-
-        let d = new Date(date)
-        const day = (d.getDate() < 10 ? '0' : '') + d.getDate()
-        const month = (d.getMonth() < 10 ? '0' : '') + (d.getMonth() + 1)
-        const year = d.getFullYear()
-        const hour = (d.getHours() < 10 ? '0' : '') + d.getHours()
-        const minutes = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes()
-        return day + '/' + month + '/' + year + ' ' + hour + ':' + minutes
-      }
-    }
-  }
+  },
+};
 </script>
 <style scoped>
 .ufabc-next-popup {
@@ -140,7 +147,7 @@ setupStorage()
   margin-left: 8px;
 }
 .error {
-  color: #F00;
+  color: #f00;
 }
 .retry-button {
   display: flex;
@@ -203,11 +210,11 @@ setupStorage()
 }
 .cr {
   text-align: center;
-  color: #05C218;
+  color: #05c218;
 }
 .ca {
   text-align: right;
-  color: #2E7EED;
+  color: #2e7eed;
 }
 .extension-troubleshooting {
   text-align: center;
