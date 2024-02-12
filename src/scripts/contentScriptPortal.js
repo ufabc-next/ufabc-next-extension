@@ -32,7 +32,13 @@ const toast = new Toastify({
   },
 });
 
-if (isIndexPortalAluno()) {
+const basePortalAlunoURL = new URL(document.location.href);
+const isPortalAluno = basePortalAlunoURL.pathname === "/dados_pessoais";
+const isFichasIndividuais =
+  basePortalAlunoURL.pathname === "/fichas_individuais";
+const isStudentFicha = basePortalAlunoURL.pathname === "/ficha_individual";
+
+if (isPortalAluno) {
   const anchor = document.createElement("div");
   anchor.setAttribute("id", "app");
   document.body.append(anchor);
@@ -42,33 +48,14 @@ if (isIndexPortalAluno()) {
   toastr.info(
     "Clique em <a href='https://aluno.ufabc.edu.br/fichas_individuais' style='color: #FFF !important;'>Ficha Individual</a> para atualizar suas informações!"
   );
-} else if (isFichasIndividuaisPath()) {
+} else if (isFichasIndividuais) {
   Utils.injectStyle("styles/portal.css");
 
   toast.showToast();
 
   iterateTabelaCursosAndSaveToLocalStorage();
-} else if (isFichaIndividualPath()) {
+} else if (isStudentFicha) {
   Utils.injectStyle("styles/portal.css");
-}
-
-function isIndexPortalAluno() {
-  return (
-    document.location.href.indexOf("aluno.ufabc.edu.br/dados_pessoais") !== -1
-  );
-}
-
-function isFichasIndividuaisPath() {
-  return (
-    document.location.href.indexOf("aluno.ufabc.edu.br/fichas_individuais") !==
-    -1
-  );
-}
-
-function isFichaIndividualPath() {
-  return (
-    document.location.href.indexOf("aluno.ufabc.edu.br/ficha_individual") !== -1
-  );
 }
 
 function iterateTabelaCursosAndSaveToLocalStorage() {
