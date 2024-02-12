@@ -42,9 +42,9 @@ if (isPortalAluno) {
   const anchor = document.createElement("div");
   anchor.setAttribute("id", "app");
   document.body.append(anchor);
-  Utils.injectScript("studentPortal.js");
 
   Utils.injectStyle("styles/portal.css");
+
   toastr.info(
     "Clique em <a href='https://aluno.ufabc.edu.br/fichas_individuais' style='color: #FFF !important;'>Ficha Individual</a> para atualizar suas informações!"
   );
