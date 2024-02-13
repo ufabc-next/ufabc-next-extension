@@ -5,17 +5,17 @@ import Utils from "../utils/extensionUtils";
 import { NextAPI } from "../services/NextAPI";
 import Axios from "axios";
 import Toastify from "toastify-js";
-import "toastify-js/src/toastify.css";
-const loading = require("../assets/loading.svg");
-const errorSVG = require("../assets/error.svg");
-const logoWhite = require("../assets/logo-white.svg");
+
+const getURL = chrome.runtime.getURL ?? ((path) => path);
 
 const nextApi = NextAPI();
 
 const toast = new Toastify({
   text: `
     <div class='toast-loading-text' style='width: 250px'>
-      <img src=${logoWhite} width="120" style="margin-bottom: 8px" />
+      <img src=${getURL(
+        "/assets/logo-white.svg"
+      )} width="120" style="margin-bottom: 8px" />
       <p style="padding-bottom: 8px;">Atualizando suas informações...</p>\n\n
       <b>NÃO SAIA DESSA PÁGINA,</b>
       <p>apenas aguarde, no máx. 5 min 🙏</p>
@@ -26,7 +26,7 @@ const toast = new Toastify({
   position: "right",
   className: "toast-loading",
   escapeMarkup: false,
-  avatar: loading,
+  avatar: getURL("/assets/loading.svg"),
   style: {
     background: "linear-gradient(to right, #2E7EED, rgba(46, 126, 237, 0.5));",
   },
@@ -169,7 +169,9 @@ async function getFichaAluno(fichaAlunoUrl, nomeDoCurso, anoDaGrade) {
     Toastify({
       text: `
         <div style="width: 228px; display: flex; align-items: end; margin-right: 12px;">
-          <img style="margin-right: 16px;" width="32" height="32" src="${errorSVG}" />
+          <img style="margin-right: 16px;" width="32" height="32" src="${getURL(
+            "/assets/error.svg"
+          )}" />
             Não foi possível salvar seus dados, recarregue a página e aguarde.
         </div>`,
       duration: -1,
