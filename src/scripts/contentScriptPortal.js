@@ -179,6 +179,7 @@ async function getFichaAluno(fichaAlunoUrl, nomeDoCurso, anoDaGrade) {
       gravity: "top",
       position: "right",
       className: "toast-error-container",
+      escapeMarkup: false,
       style: {
         background: "#E74C3C;",
       },
