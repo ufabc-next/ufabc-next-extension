@@ -10,7 +10,7 @@ function resolveEndpoint(env) {
   );
 }
 
-function NextAPI() {
+export function NextAPI() {
   const baseURL = resolveEndpoint(process.env.NODE_ENV);
   const REQUEST_TIMEOUT = 5000;
   const nextAPI = Axios.create({
@@ -24,7 +24,3 @@ function NextAPI() {
 
   return nextAPI;
 }
-
-module.exports = {
-  NextAPI,
-};

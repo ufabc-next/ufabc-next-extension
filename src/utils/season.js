@@ -10,7 +10,7 @@ function findQuadFromDate(month) {
   }
 }
 
-function findSeason(date = new Date()) {
+export function findSeason(date = new Date()) {
   const month = date.getMonth();
   return {
     1: {
@@ -28,12 +28,12 @@ function findSeason(date = new Date()) {
   }[findQuadFromDate(date.getMonth() || month)];
 }
 
-function findSeasonKey(date) {
+export function findSeasonKey(date) {
   const { year, quad } = findSeason(date);
   return `${year}:${quad}`;
 }
 
-function findIdeais(date) {
+export function findIdeais(date) {
   return {
     1: [
       "BCM0506-15", // COMUNICACAO E REDES
@@ -76,9 +76,3 @@ function findIdeais(date) {
     ],
   }[findQuadFromDate(date || new Date().getMonth())];
 }
-
-module.exports = {
-  findSeason,
-  findSeasonKey,
-  findIdeais,
-};

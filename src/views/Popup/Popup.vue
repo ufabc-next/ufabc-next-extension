@@ -81,9 +81,9 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { NextStorage } from "../../services/NextStorage";
-import { setupStorageESM } from "../../utils/setupStorageESM";
+import { setupStorage } from "../../utils/setupStorage";
 
-setupStorageESM();
+setupStorage();
 
 const students = ref(null);
 const loading = ref(false);

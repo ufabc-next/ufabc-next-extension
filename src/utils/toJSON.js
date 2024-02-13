@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-const toJSON = (payload, max) => {
+export function toJSON(payload, max) {
   const json = JSON.parse(
     _.get(new RegExp(/^\w*=(.*)/).exec(payload), "[1]", {})
   );
@@ -10,8 +10,4 @@ const toJSON = (payload, max) => {
   }
 
   return json;
-};
-
-module.exports = {
-  toJSON,
-};
+}

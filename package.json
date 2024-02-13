@@ -2,17 +2,18 @@
   "name": "UFABC-Next-Extension",
   "private": true,
   "version": "1.1.7",
+  "type": "module",
   "description": "Adiciona funcionalidades novas ao sistema de matricula da UFABC",
   "scripts": {
     "dev": "rimraf extension/dev && run-p dev:*",
-    "dev:prepare": "node --no-warnings=ExperimentalWarning tasks/prepare.dev.mjs dev",
+    "dev:prepare": "node --no-warnings=ExperimentalWarning tasks/prepare.dev.js dev",
     "dev:web": "vite",
     "dev:js": "yarn run build:dev --watch src",
     "build": "NODE_ENV=prod run-s clear build:web build:prepare build:prod",
-    "build:prepare": "node tasks/prepare.prod.mjs build",
+    "build:prepare": "node tasks/prepare.prod.js build",
     "build:web": "vite build",
-    "build:dev": "tsup --onSuccess 'node --no-warnings=ExperimentalWarning tasks/mvsw.dev.mjs'",
-    "build:prod": "tsup --onSuccess 'node --no-warnings=ExperimentalWarning tasks/mvsw.prod.mjs'",
+    "build:dev": "tsup --onSuccess 'node --no-warnings=ExperimentalWarning tasks/mvsw.dev.js'",
+    "build:prod": "tsup --onSuccess 'node --no-warnings=ExperimentalWarning tasks/mvsw.prod.js'",
     "clear": "rimraf extension/prod"
   },
   "standard": {

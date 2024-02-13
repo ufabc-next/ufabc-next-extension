@@ -1,6 +1,6 @@
 import { resolve } from "node:path";
 import { cp, rename, rm } from "node:fs/promises";
-import { logger } from "./utils.mjs";
+import { logger } from "./utils.js";
 
 (async () => {
   try {
