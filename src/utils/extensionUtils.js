@@ -4,11 +4,6 @@ import is from "is_js";
 import _ from "lodash";
 
 function ExtensionUtils() {
-  // force initialization of xdLocalStorage
-  // window.xdLocalStorage.init({
-  //   iframeUrl: getExtensionUrl("pages/iframe.html"),
-  // });
-
   const IS_BROWSER = typeof chrome != "undefined" && !!chrome.storage;
   const EXTENSION_ID = IS_BROWSER
     ? chrome.i18n.getMessage("@@extension_id")

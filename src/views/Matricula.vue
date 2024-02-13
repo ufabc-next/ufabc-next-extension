@@ -93,7 +93,6 @@ import $ from "jquery";
 import matriculaUtils from "../utils/Matricula";
 import Utils from "../utils/extensionUtils";
 import Mustache from "mustache";
-// await MatriculaHelper.getTotalMatriculas()
 
 export default {
   name: "App",
@@ -228,19 +227,6 @@ export default {
           }
         });
       });
-
-      // chrome.runtime.sendMessage(Utils.EXTENSION_ID, {
-      //   method: 'storage',
-      //   key:
-      // }, function(item) {
-      //   if (item == null) {
-      //     self.$notify({
-      //       message: 'Não temos as diciplinas que você cursou, acesse o Portal do Aluno'
-      //     })
-      //     return
-      //   }
-
-      // })
     },
     changeTeachers() {
       let self = this;

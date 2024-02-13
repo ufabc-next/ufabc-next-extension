@@ -1,11 +1,3 @@
-// https://crx.dam.io/ext/gphjopenfpnlnffmhhhhdiecgdcopmhk.html
-// add extension id to window
-const isBrowser = typeof chrome != "undefined" && !!chrome.storage;
-// var script = document.createElement('script');
-// const extension_id = isBrowser ? chrome.i18n.getMessage("@@extension_id") : null;
-// script.innerHTML = `extension_id = "${extension_id}"`;
-// (document.head || document.documentElement).appendChild(script)
-
 import $ from "jquery";
 import _ from "lodash";
 
@@ -17,6 +9,7 @@ import Utils from "../utils/extensionUtils";
 // CSS imports
 import "element-ui/lib/theme-chalk/index.css";
 
+const isBrowser = typeof chrome != "undefined" && !!chrome.storage;
 let matricula_url;
 
 if (process.env.NODE_ENV == "production") {

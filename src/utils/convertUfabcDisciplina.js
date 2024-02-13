@@ -71,7 +71,6 @@ export function convertDisciplina(d) {
 
   // fix disciplina
   obj.disciplina = disciplina.join(" ").trim();
-  //obj.ideal_quad = app.helpers.season.findIdeais().includes(obj.codigo)
 
   obj.disciplina_id = obj.id;
   obj.codigo = obj.codigo;
