@@ -17,19 +17,33 @@ import { logger } from "./utils.mjs";
       recursive: true,
     });
     await rename(
-      resolve("extension/prod/dist/background.global.js"),
+      resolve("extension/prod/dist/lib/init.global.js"),
+      resolve("extension/prod/lib/init.js")
+    );
+    await rename(
+      resolve("extension/prod/dist/lib/xdLocalStorage.min.global.js"),
+      resolve("extension/prod/lib/xdLocalStorage.min.js")
+    );
+    await rename(
+      resolve(
+        "extension/prod/dist/lib/xdLocalStoragePostMessageApi.min.global.js"
+      ),
+      resolve("extension/prod/lib/xdLocalStoragePostMessageApi.min.js")
+    );
+    await rename(
+      resolve("extension/prod/dist/scripts/background.global.js"),
       resolve("extension/prod/background.js")
     );
     await rename(
-      resolve("extension/prod/dist/contentscript.global.js"),
+      resolve("extension/prod/dist/scripts/contentscript.global.js"),
       resolve("extension/prod/contentscript.js")
     );
     await rename(
-      resolve("extension/prod/dist/contentScriptPortal.global.js"),
+      resolve("extension/prod/dist/scripts/contentScriptPortal.global.js"),
       resolve("extension/prod/contentScriptPortal.js")
     );
     await rm(resolve("extension/prod/dist"), { recursive: true });
-    logger("sucessfuly built worker [PROD]");
+    logger("BUILD:PROD", "Builded extension successfully!");
   } catch (error) {
     console.error("error moving files [PROD]", error);
   }

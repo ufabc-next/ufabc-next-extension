@@ -43,7 +43,7 @@ import { logger } from "./utils.mjs";
       resolve("extension/dev/contentScriptPortal.js")
     );
     await rm(resolve("extension/dev/dist"), { recursive: true });
-    logger("BUILD:SW", "Moved service-worker success!");
+    logger("BUILD:DEV", "Builded extension successfully!");
   } catch (error) {
     console.error("error moving files", error);
   }
