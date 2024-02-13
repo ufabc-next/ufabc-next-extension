@@ -1,13 +1,13 @@
+// CSS imports
+import "element-ui/lib/theme-chalk/index.css";
+
 import $ from "jquery";
 import _ from "lodash";
 
 import matriculaUtils from "../utils/Matricula";
 import { setupStorage } from "../utils/setupStorage";
-
-import Utils from "../utils/extensionUtils";
-
-// CSS imports
-import "element-ui/lib/theme-chalk/index.css";
+import { extensionUtils } from "../utils/extensionUtils";
+import { NextStorage } from "../services/NextStorage";
 
 const isBrowser = typeof chrome != "undefined" && !!chrome.storage;
 let matricula_url;
@@ -42,9 +42,9 @@ if (!isBrowser) {
 async function load() {
   const currentUrl = document.location.href;
   // add cross-domain local storage
-  Utils.injectScript("lib/xdLocalStorage.min.js");
-  Utils.injectIframe("pages/iframe.html");
-  Utils.injectScript("lib/init.js");
+  extensionUtils.injectScript("lib/xdLocalStorage.min.js");
+  extensionUtils.injectIframe("pages/iframe.html");
+  extensionUtils.injectScript("lib/init.js");
 
   setupStorage();
   await import("./contentScriptPortal");
@@ -54,7 +54,7 @@ async function load() {
     setTimeout(async () => {
       let lastUpdate = null;
       try {
-        lastUpdate = await Utils.storage.getItem("ufabc-extension-last");
+        lastUpdate = await NextStorage.getItem("ufabc-extension-last");
       } catch (err) {
         lastUpdate = Date.now();
       } finally {
@@ -68,7 +68,7 @@ async function load() {
       $("#meio").prepend(anchor);
 
       //inject styles
-      Utils.injectStyle("styles/main.css");
+      extensionUtils.injectStyle("styles/main.css");
 
       // manda as informacoes para o servidor
       matriculaUtils.sendAlunoData();
@@ -92,7 +92,7 @@ async function load() {
       document.body.append(reviewSubject);
 
       // inject Vue app
-      Utils.injectScript("scripts/main.js");
+      extensionUtils.injectScript("scripts/main.js");
     }, 1500);
   }
 }

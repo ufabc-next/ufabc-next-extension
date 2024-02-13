@@ -107,7 +107,7 @@ import Highcharts from "highcharts";
 
 import _ from "lodash";
 import { NextAPI } from "../services/NextAPI";
-import Utils from "../utils/extensionUtils";
+import { NextStorage } from "../services/NextStorage";
 import matriculaUtils from "../utils/Matricula";
 
 Highcharts3D(Highcharts);
@@ -335,7 +335,7 @@ export default {
       let self = this;
 
       const storageUser = "ufabc-extension-" + matriculaUtils.currentUser();
-      Utils.storage.getItem(storageUser).then((item) => {
+      NextStorage.getItem(storageUser).then((item) => {
         if (item == null) return;
         self.student_cr = _.get(item, "[1].cr", 0) || _.get(item, "[0].cr", 0);
       });

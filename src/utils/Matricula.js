@@ -3,7 +3,7 @@ import { NextAPI } from "../services/NextAPI";
 import { toJSON } from "./toJSON";
 import _ from "lodash";
 import $ from "jquery";
-import Utils from "./extensionUtils";
+import { NextStorage } from "../services/NextStorage";
 
 const nextApi = NextAPI();
 
@@ -32,8 +32,8 @@ function Matricula() {
   async function getProfessors() {
     try {
       let { data: professors } = await nextApi.get("/disciplinas");
-      await Utils.storage.setItem("ufabc-extension-last", Date.now());
-      await Utils.storage.setItem("ufabc-extension-disciplinas", professors);
+      await NextStorage.setItem("ufabc-extension-last", Date.now());
+      await NextStorage.setItem("ufabc-extension-disciplinas", professors);
       return professors;
     } catch (e) {
       console.log("❌ Erro ao atualizar disciplinas");

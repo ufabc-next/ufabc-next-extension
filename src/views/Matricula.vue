@@ -91,8 +91,9 @@
 <script>
 import $ from "jquery";
 import matriculaUtils from "../utils/Matricula";
-import Utils from "../utils/extensionUtils";
+import { extensionUtils } from "../utils/extensionUtils";
 import Mustache from "mustache";
+import { NextStorage } from "../services/NextStorage";
 
 export default {
   name: "App",
@@ -135,7 +136,7 @@ export default {
     };
   },
   async created() {
-    const students = await Utils.storage.getItem("ufabc-extension-students");
+    const students = await NextStorage.getItem("ufabc-extension-students");
     const currentUser = matriculaUtils.currentUser();
 
     const currentStudent = students.find(
@@ -155,7 +156,7 @@ export default {
 
   methods: {
     getUrl(path) {
-      return Utils.getChromeUrl(path);
+      return extensionUtils.chromeURL(path);
     },
 
     applyFilter(params) {
@@ -200,7 +201,7 @@ export default {
       }
 
       const storageUser = "ufabc-extension-" + matriculaUtils.currentUser();
-      Utils.storage.getItem(storageUser).then((cursadas) => {
+      NextStorage.getItem(storageUser).then((cursadas) => {
         if (cursadas == null) {
           self.$notify({
             message:
@@ -241,43 +242,41 @@ export default {
         return;
       }
 
-      Utils.storage
-        .getItem("ufabc-extension-disciplinas")
-        .then(async (item) => {
-          if (item == null) {
-            item = await matriculaUtils.getProfessors();
+      NextStorage.getItem("ufabc-extension-disciplinas").then(async (item) => {
+        if (item == null) {
+          item = await matriculaUtils.getProfessors();
+        }
+
+        const disciplinaMap = new Map([
+          ...item.map((d) => [d.disciplina_id.toString(), d]),
+        ]);
+        const htmlPop = await extensionUtils.fetchChromeURL(
+          "pages/matricula/fragments/professorPopover.html"
+        );
+        const corteHtml = await extensionUtils.fetchChromeUrl(
+          "pages/matricula/corte.html"
+        );
+
+        $("table tr").each(function () {
+          var el = $(this).find("td:nth-child(3)");
+          var subjectEl = $(this).find("td:nth-child(3) > span");
+          var corteEl = $(this).find("td:nth-child(5)");
+          var disciplinaId = el.parent().attr("value");
+
+          const disciplinaInfo = disciplinaMap.get(disciplinaId);
+          if (!disciplinaInfo) return;
+
+          // Add subject id to span with subject
+          if (disciplinaInfo.subject) {
+            subjectEl.attr("subjectId", disciplinaInfo.subject);
           }
 
-          const disciplinaMap = new Map([
-            ...item.map((d) => [d.disciplina_id.toString(), d]),
-          ]);
-          const htmlPop = await Utils.fetchChromeUrl(
-            "pages/matricula/fragments/professorPopover.html"
-          );
-          const corteHtml = await Utils.fetchChromeUrl(
-            "pages/matricula/corte.html"
-          );
+          const data = { disciplina: disciplinaInfo };
 
-          $("table tr").each(function () {
-            var el = $(this).find("td:nth-child(3)");
-            var subjectEl = $(this).find("td:nth-child(3) > span");
-            var corteEl = $(this).find("td:nth-child(5)");
-            var disciplinaId = el.parent().attr("value");
-
-            const disciplinaInfo = disciplinaMap.get(disciplinaId);
-            if (!disciplinaInfo) return;
-
-            // Add subject id to span with subject
-            if (disciplinaInfo.subject) {
-              subjectEl.attr("subjectId", disciplinaInfo.subject);
-            }
-
-            const data = { disciplina: disciplinaInfo };
-
-            el.append(Mustache.render(htmlPop.data, data));
-            corteEl.append(corteHtml.data);
-          });
+          el.append(Mustache.render(htmlPop.data, data));
+          corteEl.append(corteHtml.data);
         });
+      });
     },
   },
 };
