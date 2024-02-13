@@ -1,7 +1,7 @@
-@import "./toastr.css";
-
 @import url("https://fonts.googleapis.com/css?family=Ubuntu");
 @import url("https://fonts.googleapis.com/css?family=Lato");
+@import url("./toastr.css");
+@import url("./toastify.css");
 
 .toast-loading {
   display: flex;
