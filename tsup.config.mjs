@@ -7,6 +7,7 @@ export default defineConfig({
     "src/scripts/background.js",
     "src/scripts/contentscript.js",
     "src/scripts/contentScriptPortal.js",
+    "src/lib/*.js",
   ],
   target: "node20",
   format: "iife",

@@ -13,16 +13,33 @@ import { logger } from "./utils.mjs";
     await cp(resolve("src/pages"), resolve("extension/dev/pages"), {
       recursive: true,
     });
+    await cp(resolve("src/lib"), resolve("extension/dev/lib"), {
+      recursive: true,
+    });
     await rename(
-      resolve("extension/dev/dist/background.global.js"),
+      resolve("extension/dev/dist/lib/init.global.js"),
+      resolve("extension/dev/lib/init.js")
+    );
+    await rename(
+      resolve("extension/dev/dist/lib/xdLocalStorage.min.global.js"),
+      resolve("extension/dev/lib/xdLocalStorage.min.js")
+    );
+    await rename(
+      resolve(
+        "extension/dev/dist/lib/xdLocalStoragePostMessageApi.min.global.js"
+      ),
+      resolve("extension/dev/lib/xdLocalStoragePostMessageApi.min.js")
+    );
+    await rename(
+      resolve("extension/dev/dist/scripts/background.global.js"),
       resolve("extension/dev/background.js")
     );
     await rename(
-      resolve("extension/dev/dist/contentscript.global.js"),
+      resolve("extension/dev/dist/scripts/contentscript.global.js"),
       resolve("extension/dev/contentscript.js")
     );
     await rename(
-      resolve("extension/dev/dist/contentScriptPortal.global.js"),
+      resolve("extension/dev/dist/scripts/contentScriptPortal.global.js"),
       resolve("extension/dev/contentScriptPortal.js")
     );
     await rm(resolve("extension/dev/dist"), { recursive: true });
