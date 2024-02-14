@@ -12,7 +12,7 @@ function resolveEndpoint(env) {
 
 export class NextAPI {
   static #nextApiInstance;
-  #baseURL = resolveEndpoint(process.env.NODE_ENV);
+  #baseURL = resolveEndpoint("prod");
   #REQUEST_TIMEOUT = 5_000;
   #DEFAULT_HEADERS = {
     Accept: "application/json",

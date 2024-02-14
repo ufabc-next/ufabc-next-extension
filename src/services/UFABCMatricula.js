@@ -22,7 +22,7 @@ class UFABCMatricula {
       dev: "http://localhost:8011/snapshot/assets/todasDisciplinas.js",
       prod: "https://matricula.ufabc.edu.br/cache/matriculas.js",
     }[process.env.NODE_ENV] || "http://localhost:8011/v1";
-  #nextApi = new NextAPI();
+  #nextApi = new NextAPI().init();
 
   constructor() {}
 

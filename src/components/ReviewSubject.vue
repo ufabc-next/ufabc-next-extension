@@ -81,7 +81,7 @@
     series: []
   };
 
-  const nextApi = new NextAPI();
+  const nextApi = new NextAPI().init();
 
   export default {
     name: 'ReviewSubject',

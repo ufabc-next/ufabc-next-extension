@@ -9,7 +9,7 @@ import Toastify from "toastify-js";
 
 const getURL = chrome.runtime.getURL ?? ((path) => path);
 
-const nextApi = new NextAPI();
+const nextApi = new NextAPI().init();
 
 const toast = new Toastify({
   text: `

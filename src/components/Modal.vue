@@ -122,7 +122,7 @@
   import { convertDisciplina } from '../utils/convertUfabcDisciplina'
   import { findSeasonKey, findIdeais } from '../utils/season'
 
-  const nextApi = new NextAPI();
+  const nextApi = new NextAPI().init();
 
   export default {
     name: 'Modal',
