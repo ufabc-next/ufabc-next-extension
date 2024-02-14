@@ -1,8 +1,7 @@
-@import "../../node_modules/toastr/build/toastr.min.css";
-
-@import url('https://fonts.googleapis.com/css?family=Ubuntu');
-@import url('https://fonts.googleapis.com/css?family=Lato');
-
+@import url("https://fonts.googleapis.com/css?family=Ubuntu");
+@import url("https://fonts.googleapis.com/css?family=Lato");
+@import url("./toastr.css");
+@import url("./toastify.css");
 
 .toast-loading {
   display: flex;
@@ -58,7 +57,7 @@
   font-stretch: normal;
   line-height: 1.38;
   letter-spacing: normal;
-  color: rgba(0, 0, 0, 0.75); 
+  color: rgba(0, 0, 0, 0.75);
 }
 
 #conteudo #page > p:nth-child(3) {
