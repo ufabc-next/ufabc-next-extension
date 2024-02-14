@@ -1,22 +1,15 @@
-// https://crx.dam.io/ext/gphjopenfpnlnffmhhhhdiecgdcopmhk.html
-// add extension id to window
-const isBrowser = typeof chrome != "undefined" && !!chrome.storage;
-// var script = document.createElement('script');
-// const extension_id = isBrowser ? chrome.i18n.getMessage("@@extension_id") : null;
-// script.innerHTML = `extension_id = "${extension_id}"`;
-// (document.head || document.documentElement).appendChild(script)
+// CSS imports
+import "element-ui/lib/theme-chalk/index.css";
 
 import $ from "jquery";
 import _ from "lodash";
 
-import matriculaUtils from "../utils/Matricula";
+import { ufabcMatricula } from "../services/UFABCMatricula";
 import { setupStorage } from "../utils/setupStorage";
+import { extensionUtils } from "../utils/extensionUtils";
+import { NextStorage } from "../services/NextStorage";
 
-import Utils from "../utils/extensionUtils";
-
-// CSS imports
-import "element-ui/lib/theme-chalk/index.css";
-
+const isBrowser = typeof chrome != "undefined" && !!chrome.storage;
 let matricula_url;
 
 if (process.env.NODE_ENV == "production") {
@@ -49,9 +42,9 @@ if (!isBrowser) {
 async function load() {
   const currentUrl = document.location.href;
   // add cross-domain local storage
-  Utils.injectScript("lib/xdLocalStorage.min.js");
-  Utils.injectIframe("pages/iframe.html");
-  Utils.injectScript("lib/init.js");
+  extensionUtils.injectScript("lib/xdLocalStorage.min.js");
+  extensionUtils.injectIframe("pages/iframe.html");
+  extensionUtils.injectScript("lib/init.js");
 
   setupStorage();
   await import("./contentScriptPortal");
@@ -61,11 +54,11 @@ async function load() {
     setTimeout(async () => {
       let lastUpdate = null;
       try {
-        lastUpdate = await Utils.storage.getItem("ufabc-extension-last");
+        lastUpdate = await NextStorage.getItem("ufabc-extension-last");
       } catch (err) {
         lastUpdate = Date.now();
       } finally {
-        matriculaUtils.updateProfessors(lastUpdate);
+        ufabcMatricula.updateProfessors(lastUpdate);
       }
 
       // this is the main vue app
@@ -75,10 +68,10 @@ async function load() {
       $("#meio").prepend(anchor);
 
       //inject styles
-      Utils.injectStyle("styles/main.css");
+      extensionUtils.injectStyle("styles/main.css");
 
       // manda as informacoes para o servidor
-      matriculaUtils.sendAlunoData();
+      ufabcMatricula.sendAlunoData();
 
       // load vue app modal
       const modal = document.createElement("div");
@@ -99,7 +92,7 @@ async function load() {
       document.body.append(reviewSubject);
 
       // inject Vue app
-      Utils.injectScript("scripts/main.js");
+      extensionUtils.injectScript("scripts/main.js");
     }, 1500);
   }
 }

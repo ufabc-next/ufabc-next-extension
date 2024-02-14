@@ -10,17 +10,30 @@ function resolveEndpoint(env) {
   );
 }
 
-export function NextAPI() {
-  const baseURL = resolveEndpoint(process.env.NODE_ENV);
-  const REQUEST_TIMEOUT = 5000;
-  const nextAPI = Axios.create({
-    baseURL,
-    timeout: REQUEST_TIMEOUT,
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  });
+export class NextAPI {
+  static #nextApiInstance;
+  #baseURL = resolveEndpoint("prod");
+  #REQUEST_TIMEOUT = 5_000;
+  #DEFAULT_HEADERS = {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
 
-  return nextAPI;
+  static nextInstance() {
+    if (!NextAPI.#nextApiInstance) {
+      NextAPI.#nextApiInstance = new NextAPI();
+    }
+
+    return NextAPI.#nextApiInstance;
+  }
+
+  init() {
+    const nextApi = Axios.create({
+      baseURL: this.#baseURL,
+      timeout: this.#REQUEST_TIMEOUT,
+      headers: this.#DEFAULT_HEADERS,
+    });
+
+    return nextApi;
+  }
 }

@@ -118,11 +118,11 @@
   import _ from 'lodash'
   import draggable from 'vuedraggable'
   import { NextAPI } from '../services/NextAPI'
-  import matriculaUtils from '../utils/Matricula'
+  import { ufabcMatricula } from '../services/UFABCMatricula'
   import { convertDisciplina } from '../utils/convertUfabcDisciplina'
   import { findSeasonKey, findIdeais } from '../utils/season'
 
-  const nextApi = NextAPI();
+  const nextApi = new NextAPI().init();
 
   export default {
     name: 'Modal',
@@ -207,7 +207,7 @@
       fetch() {
         let corteId = _.get(this.value, 'corte_id', '')
         if(!corteId) return
-        const aluno_id = matriculaUtils.getAlunoId()
+        const aluno_id = ufabcMatricula.getAlunoId()
 
         this.loading = true
 
@@ -266,7 +266,7 @@
       // },
 
       tableRowClassName({row, rowIndex}) {
-        if (row.aluno_id == matriculaUtils.getAlunoId()) {
+        if (row.aluno_id == ufabcMatricula.getAlunoId()) {
           return 'aluno-row'
         } else if(rowIndex <= this.computeKicksForecast) {
           return 'not-kicked-row'

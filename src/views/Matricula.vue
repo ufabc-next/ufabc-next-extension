@@ -90,10 +90,10 @@
 </template>
 <script>
 import $ from "jquery";
-import matriculaUtils from "../utils/Matricula";
-import Utils from "../utils/extensionUtils";
+import { ufabcMatricula } from "../services/UFABCMatricula";
+import { extensionUtils } from "../utils/extensionUtils";
 import Mustache from "mustache";
-// await MatriculaHelper.getTotalMatriculas()
+import { NextStorage } from "../services/NextStorage";
 
 export default {
   name: "App",
@@ -136,8 +136,8 @@ export default {
     };
   },
   async created() {
-    const students = await Utils.storage.getItem("ufabc-extension-students");
-    const currentUser = matriculaUtils.currentUser();
+    const students = await NextStorage.getItem("ufabc-extension-students");
+    const currentUser = ufabcMatricula.currentUser();
 
     const currentStudent = students.find(
       (student) => student.name == currentUser
@@ -156,7 +156,7 @@ export default {
 
   methods: {
     getUrl(path) {
-      return Utils.getChromeUrl(path);
+      return extensionUtils.chromeURL(path);
     },
 
     applyFilter(params) {
@@ -182,7 +182,7 @@ export default {
         return;
       }
 
-      const aluno_id = matriculaUtils.getAlunoId();
+      const aluno_id = ufabcMatricula.getAlunoId();
       const matriculas = window.matriculas[aluno_id] || [];
 
       $("tr").each(function () {
@@ -200,8 +200,8 @@ export default {
         return;
       }
 
-      const storageUser = "ufabc-extension-" + matriculaUtils.currentUser();
-      Utils.storage.getItem(storageUser).then((cursadas) => {
+      const storageUser = "ufabc-extension-" + ufabcMatricula.currentUser();
+      NextStorage.getItem(storageUser).then((cursadas) => {
         if (cursadas == null) {
           self.$notify({
             message:
@@ -228,19 +228,6 @@ export default {
           }
         });
       });
-
-      // chrome.runtime.sendMessage(Utils.EXTENSION_ID, {
-      //   method: 'storage',
-      //   key:
-      // }, function(item) {
-      //   if (item == null) {
-      //     self.$notify({
-      //       message: 'Não temos as diciplinas que você cursou, acesse o Portal do Aluno'
-      //     })
-      //     return
-      //   }
-
-      // })
     },
     changeTeachers() {
       let self = this;
@@ -255,43 +242,41 @@ export default {
         return;
       }
 
-      Utils.storage
-        .getItem("ufabc-extension-disciplinas")
-        .then(async (item) => {
-          if (item == null) {
-            item = await matriculaUtils.getProfessors();
+      NextStorage.getItem("ufabc-extension-disciplinas").then(async (item) => {
+        if (item == null) {
+          item = await ufabcMatricula.getProfessors();
+        }
+
+        const disciplinaMap = new Map([
+          ...item.map((d) => [d.disciplina_id.toString(), d]),
+        ]);
+        const htmlPop = await extensionUtils.fetchChromeURL(
+          "pages/matricula/fragments/professorPopover.html"
+        );
+        const corteHtml = await extensionUtils.fetchChromeUrl(
+          "pages/matricula/corte.html"
+        );
+
+        $("table tr").each(function () {
+          var el = $(this).find("td:nth-child(3)");
+          var subjectEl = $(this).find("td:nth-child(3) > span");
+          var corteEl = $(this).find("td:nth-child(5)");
+          var disciplinaId = el.parent().attr("value");
+
+          const disciplinaInfo = disciplinaMap.get(disciplinaId);
+          if (!disciplinaInfo) return;
+
+          // Add subject id to span with subject
+          if (disciplinaInfo.subject) {
+            subjectEl.attr("subjectId", disciplinaInfo.subject);
           }
 
-          const disciplinaMap = new Map([
-            ...item.map((d) => [d.disciplina_id.toString(), d]),
-          ]);
-          const htmlPop = await Utils.fetchChromeUrl(
-            "pages/matricula/fragments/professorPopover.html"
-          );
-          const corteHtml = await Utils.fetchChromeUrl(
-            "pages/matricula/corte.html"
-          );
+          const data = { disciplina: disciplinaInfo };
 
-          $("table tr").each(function () {
-            var el = $(this).find("td:nth-child(3)");
-            var subjectEl = $(this).find("td:nth-child(3) > span");
-            var corteEl = $(this).find("td:nth-child(5)");
-            var disciplinaId = el.parent().attr("value");
-
-            const disciplinaInfo = disciplinaMap.get(disciplinaId);
-            if (!disciplinaInfo) return;
-
-            // Add subject id to span with subject
-            if (disciplinaInfo.subject) {
-              subjectEl.attr("subjectId", disciplinaInfo.subject);
-            }
-
-            const data = { disciplina: disciplinaInfo };
-
-            el.append(Mustache.render(htmlPop.data, data));
-            corteEl.append(corteHtml.data);
-          });
+          el.append(Mustache.render(htmlPop.data, data));
+          corteEl.append(corteHtml.data);
         });
+      });
     },
   },
 };

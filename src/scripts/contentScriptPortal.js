@@ -1,14 +1,15 @@
 import toastr from "toastr";
 import $ from "jquery";
 import _ from "lodash";
-import Utils from "../utils/extensionUtils";
+import { extensionUtils } from "../utils/extensionUtils";
 import { NextAPI } from "../services/NextAPI";
+import { NextStorage } from "../services/NextStorage";
 import Axios from "axios";
 import Toastify from "toastify-js";
 
 const getURL = chrome.runtime.getURL ?? ((path) => path);
 
-const nextApi = NextAPI();
+const nextApi = new NextAPI().init();
 
 const toast = new Toastify({
   text: `
@@ -43,19 +44,19 @@ if (isPortalAluno) {
   anchor.setAttribute("id", "app");
   document.body.append(anchor);
 
-  Utils.injectStyle("styles/portal.css");
+  extensionUtils.injectStyle("styles/portal.css");
 
   toastr.info(
     "Clique em <a href='https://aluno.ufabc.edu.br/fichas_individuais' style='color: #FFF !important;'>Ficha Individual</a> para atualizar suas informações!"
   );
 } else if (isFichasIndividuais) {
-  Utils.injectStyle("styles/portal.css");
+  extensionUtils.injectStyle("styles/portal.css");
 
   toast.showToast();
 
   iterateTabelaCursosAndSaveToLocalStorage();
 } else if (isStudentFicha) {
-  Utils.injectStyle("styles/portal.css");
+  extensionUtils.injectStyle("styles/portal.css");
 }
 
 function iterateTabelaCursosAndSaveToLocalStorage() {
@@ -101,7 +102,7 @@ async function getFichaAluno(fichaAlunoUrl, nomeDoCurso, anoDaGrade) {
       )[1] || "some ra";
 
     const storageRA = "ufabc-extension-ra-" + getEmailAluno();
-    await Utils.storage.setItem(storageRA, ra);
+    await NextStorage.setItem(storageRA, ra);
 
     const jsonFicha = await Axios.get(
       "https://aluno.ufabc.edu.br" + fichaAlunoUrl,
@@ -203,13 +204,13 @@ function toNumber(el) {
 
 async function saveToLocalStorage(curso) {
   const storageUser = "ufabc-extension-" + getEmailAluno();
-  let user = await Utils.storage.getItem(storageUser);
+  let user = await NextStorage.getItem(storageUser);
   if (!user || _.isEmpty(user)) user = [];
 
   user.push(curso);
   user = _.uniqBy(user, "curso");
 
-  await Utils.storage.setItem(storageUser, user);
+  await NextStorage.setItem(storageUser, user);
 
   toastr.success(
     `Suas informações foram salvas! Disciplinas do curso do ${curso.curso}
@@ -221,11 +222,11 @@ async function saveToLocalStorage(curso) {
 
 async function saveStudentsToLocalStorage(curso) {
   const storageUser = "ufabc-extension-" + getEmailAluno();
-  const cursos = await Utils.storage.getItem(storageUser);
+  const cursos = await NextStorage.getItem(storageUser);
   const ra = (curso && curso.ra) || null;
 
   let allSavedStudents = [];
-  const students = await Utils.storage.getItem("ufabc-extension-students");
+  const students = await NextStorage.getItem("ufabc-extension-students");
   if (students && students.length) {
     allSavedStudents.push(...students);
   }
@@ -238,5 +239,5 @@ async function saveStudentsToLocalStorage(curso) {
     lastUpdate: Date.now(),
   };
   allSavedStudents.unshift(student);
-  await Utils.storage.setItem("ufabc-extension-students", allSavedStudents);
+  await NextStorage.setItem("ufabc-extension-students", allSavedStudents);
 }
