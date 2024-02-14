@@ -108,7 +108,7 @@ import Highcharts from "highcharts";
 import _ from "lodash";
 import { NextAPI } from "../services/NextAPI";
 import { NextStorage } from "../services/NextStorage";
-import { ufabcMatricula } from '../services/UFABCMatricula'
+import { ufabcMatricula } from "../services/UFABCMatricula";
 
 Highcharts3D(Highcharts);
 
@@ -147,7 +147,7 @@ const data = {
   series: [],
 };
 
-const nextApi = NextAPI();
+const nextApi = new NextAPI();
 
 export default {
   name: "ReviewTecher",
