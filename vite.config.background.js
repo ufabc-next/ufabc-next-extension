@@ -25,7 +25,7 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        entryFileNames: "background.global.js",
+        entryFileNames: "background.mjs",
         extend: true,
       },
     },

@@ -15,7 +15,7 @@ export async function getManifest() {
       128: "./assets/icon-128.png",
     },
     background: {
-      service_worker: "background.js",
+      service_worker: "dist/background/background.mjs",
     },
     permissions: ["storage"],
     host_permissions: [
@@ -28,7 +28,7 @@ export async function getManifest() {
     content_scripts: [
       {
         all_frames: true,
-        js: ["contentscript.js"],
+        js: ["dist/contentScripts/contentscript.global.js"],
         matches: [
           "http://*.ufabc.edu.br/*",
           "https://*.ufabc.edu.br/*",
