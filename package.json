@@ -5,16 +5,17 @@
   "type": "module",
   "description": "Adiciona funcionalidades novas ao sistema de matricula da UFABC",
   "scripts": {
-    "dev": "rimraf extension/dev && run-p dev:*",
-    "dev:prepare": "node --no-warnings=ExperimentalWarning tasks/prepare.dev.js dev",
+    "dev": "yarn clear && NODE_ENV=dev run-p dev:*",
+    "dev:prepare": "node tasks/prepare.js",
+    "dev:background": "yarn build:background --mode dev",
     "dev:web": "vite",
-    "dev:js": "yarn run build:dev --watch src",
-    "build": "NODE_ENV=prod run-s clear build:web build:prepare build:prod",
-    "build:prepare": "node tasks/prepare.prod.js build",
+    "dev:js": "yarn run build:js --mode dev",
+    "build": "NODE_ENV=prod run-s clear build:web build:prepare build:background build:js",
+    "build:prepare": "node tasks/prepare.js",
+    "build:background": "vite build --config vite.config.background.js",
     "build:web": "vite build",
-    "build:dev": "tsup --onSuccess 'node --no-warnings=ExperimentalWarning tasks/mvsw.dev.js'",
-    "build:prod": "tsup --onSuccess 'node --no-warnings=ExperimentalWarning tasks/mvsw.prod.js'",
-    "clear": "rimraf extension/prod"
+    "build:js": "vite build --config vite.config.content.js",
+    "clear": "rimraf --glob extension/dist extension/manifest.json extension.*"
   },
   "standard": {
     "globals": [
@@ -27,8 +28,8 @@
     "fs-extra": "^11.2.0",
     "kolorist": "^1.8.0",
     "npm-run-all": "^4.1.5",
+    "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
-    "tsup": "^8.0.1",
     "unplugin-vue-components": "^0.26.0",
     "vite": "^5.1.1"
   },
