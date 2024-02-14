@@ -4,7 +4,7 @@ import "element-ui/lib/theme-chalk/index.css";
 import $ from "jquery";
 import _ from "lodash";
 
-import matriculaUtils from "../utils/Matricula";
+import { ufabcMatricula } from "../services/UFABCMatricula";
 import { setupStorage } from "../utils/setupStorage";
 import { extensionUtils } from "../utils/extensionUtils";
 import { NextStorage } from "../services/NextStorage";
@@ -58,7 +58,7 @@ async function load() {
       } catch (err) {
         lastUpdate = Date.now();
       } finally {
-        matriculaUtils.updateProfessors(lastUpdate);
+        ufabcMatricula.updateProfessors(lastUpdate);
       }
 
       // this is the main vue app
@@ -71,7 +71,7 @@ async function load() {
       extensionUtils.injectStyle("styles/main.css");
 
       // manda as informacoes para o servidor
-      matriculaUtils.sendAlunoData();
+      ufabcMatricula.sendAlunoData();
 
       // load vue app modal
       const modal = document.createElement("div");

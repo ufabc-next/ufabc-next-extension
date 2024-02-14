@@ -90,7 +90,7 @@
 </template>
 <script>
 import $ from "jquery";
-import matriculaUtils from "../utils/Matricula";
+import { ufabcMatricula } from "../services/UFABCMatricula";
 import { extensionUtils } from "../utils/extensionUtils";
 import Mustache from "mustache";
 import { NextStorage } from "../services/NextStorage";
@@ -137,7 +137,7 @@ export default {
   },
   async created() {
     const students = await NextStorage.getItem("ufabc-extension-students");
-    const currentUser = matriculaUtils.currentUser();
+    const currentUser = ufabcMatricula.currentUser();
 
     const currentStudent = students.find(
       (student) => student.name == currentUser
@@ -182,7 +182,7 @@ export default {
         return;
       }
 
-      const aluno_id = matriculaUtils.getAlunoId();
+      const aluno_id = ufabcMatricula.getAlunoId();
       const matriculas = window.matriculas[aluno_id] || [];
 
       $("tr").each(function () {
@@ -200,7 +200,7 @@ export default {
         return;
       }
 
-      const storageUser = "ufabc-extension-" + matriculaUtils.currentUser();
+      const storageUser = "ufabc-extension-" + ufabcMatricula.currentUser();
       NextStorage.getItem(storageUser).then((cursadas) => {
         if (cursadas == null) {
           self.$notify({
@@ -244,7 +244,7 @@ export default {
 
       NextStorage.getItem("ufabc-extension-disciplinas").then(async (item) => {
         if (item == null) {
-          item = await matriculaUtils.getProfessors();
+          item = await ufabcMatricula.getProfessors();
         }
 
         const disciplinaMap = new Map([
