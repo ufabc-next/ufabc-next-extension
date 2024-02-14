@@ -2,6 +2,7 @@ import { resolve, dirname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 import Vue2 from "@vitejs/plugin-vue2";
+import Components from "unplugin-vue-components/vite";
 
 const EsmDirname = dirname(fileURLToPath(import.meta.url));
 
@@ -37,6 +38,10 @@ export default defineConfig(({ command }) => {
     },
     plugins: [
       Vue2(),
+      Components({
+        dirs: [resolvePath("src/components")],
+        dts: false,
+      }),
       {
         name: "assets-rewrite",
         enforce: "post",
