@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import { sharedViteConfig } from "./vite.config";
 import packageJson from "./package.json" with { type: "json" };
-import { resolvePath } from "./tasks/utils";
+import { resolvePath, isDev } from "./tasks/utils";
 
 // bundling the content script using Vite
 export default defineConfig({
