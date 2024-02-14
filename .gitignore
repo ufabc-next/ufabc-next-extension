@@ -6,4 +6,13 @@ npm-debug.log
 
 dist/
 packages/
-extension
+
+src/components.d.ts
+extension/manifest.json
+
+*.crx
+*.local
+*.log
+*.pem
+*.xpi
+*.zip
