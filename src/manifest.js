@@ -11,8 +11,8 @@ export async function getManifest() {
     version: pkg.version,
     description: pkg.description,
     icons: {
-      16: "./assets/icon-16.png",
-      128: "./assets/icon-128.png",
+      16: "assets/icon-16.png",
+      128: "assets/icon-128.png",
     },
     background: {
       service_worker: "dist/background/background.mjs",
@@ -55,7 +55,7 @@ export async function getManifest() {
         38: "assets/icon-38.png",
       },
       default_title: "Next Extension",
-      default_popup: "./views/Popup/index.html",
+      default_popup: "dist/views/Popup/index.html",
     },
     content_security_policy: {
       extension_pages: "script-src 'self'; object-src 'self'",
