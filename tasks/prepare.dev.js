@@ -4,7 +4,7 @@ import { execSync } from "node:child_process";
 import { resolve } from "node:path";
 import { watch } from "chokidar";
 import { existsSync } from "node:fs";
-import { EsmDirname, logger, PORT } from "./utils.mjs";
+import { EsmDirname, logger, PORT } from "./utils.js";
 
 const resolvePath = (...args) => resolve(EsmDirname, "..", ...args);
 
@@ -46,7 +46,7 @@ async function stubHtml() {
 }
 
 function writeManifest() {
-  execSync("node ./tasks/manifest.dev.mjs", { stdio: "inherit" });
+  execSync("node ./tasks/manifest.dev.js", { stdio: "inherit" });
 }
 
 writeManifest();
@@ -56,7 +56,7 @@ if (isDev) {
   watch(resolvePath("src/**/*.html")).on("change", () => {
     stubHtml();
   });
-  watch([resolvePath("src/manifest.mjs"), resolvePath("package.json")]).on(
+  watch([resolvePath("src/manifest.js"), resolvePath("package.json")]).on(
     "change",
     () => {
       writeManifest();

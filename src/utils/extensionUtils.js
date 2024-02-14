@@ -3,8 +3,6 @@ import Axios from "axios";
 import is from "is_js";
 import _ from "lodash";
 
-module.exports = new ExtensionUtils();
-
 function ExtensionUtils() {
   // force initialization of xdLocalStorage
   // window.xdLocalStorage.init({
@@ -131,3 +129,5 @@ function ExtensionUtils() {
     storage,
   };
 }
+
+export default new ExtensionUtils();

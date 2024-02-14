@@ -1,13 +1,11 @@
 import Axios from "axios";
 import { NextAPI } from "../services/NextAPI";
-import toJSON from "./toJSON";
+import { toJSON } from "./toJSON";
 import _ from "lodash";
 import $ from "jquery";
 import Utils from "./extensionUtils";
 
 const nextApi = NextAPI();
-
-module.exports = new Matricula();
 
 function Matricula() {
   const MATRICULAS_URL =
@@ -154,3 +152,5 @@ function Matricula() {
     sendAlunoData,
   };
 }
+
+export default new Matricula();

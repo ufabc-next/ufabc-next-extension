@@ -1,4 +1,4 @@
-function setupStorage() {
+export function setupStorage() {
   document.addEventListener("requestStorage", (event) => {
     const key = event.detail.key;
     const date = event.detail.date;
@@ -63,7 +63,3 @@ function setupStorage() {
     }
   });
 }
-
-module.exports = {
-  setupStorage,
-};

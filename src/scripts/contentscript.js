@@ -54,7 +54,7 @@ async function load() {
   Utils.injectScript("lib/init.js");
 
   setupStorage();
-  require("./contentScriptPortal");
+  await import("./contentScriptPortal");
 
   if (matricula_url.some((url) => currentUrl.indexOf(url) != -1)) {
     // update teachers locally

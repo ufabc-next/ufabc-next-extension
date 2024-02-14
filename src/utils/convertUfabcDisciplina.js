@@ -1,8 +1,8 @@
-const _ = require("lodash");
-const removeDiacritics = require("./removeDiacritics");
+import _ from "lodash";
+import removeDiacritics from "./removeDiacritics";
 
 // This convert an disciplina from the .json from matriculas.ufabc
-function convertDisciplina(d) {
+export function convertDisciplina(d) {
   const obj = _.defaults(_.clone(d));
 
   // specific for .json
@@ -114,7 +114,3 @@ function extractCampus(d) {
 
   return null;
 }
-
-module.exports = {
-  convertDisciplina,
-};
