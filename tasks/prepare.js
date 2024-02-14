@@ -1,11 +1,8 @@
 import { watch } from "chokidar";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { execSync } from "node:child_process";
-import { resolve } from "node:path";
 import { existsSync } from "node:fs";
-import { EsmDirname, logger, PORT, isDev } from "./utils.js";
-
-const resolvePath = (...args) => resolve(EsmDirname, "..", ...args);
+import { logger, PORT, isDev, resolvePath } from "./utils.js";
 
 const ensureDir = async (dir) => {
   if (!existsSync(dir)) {
