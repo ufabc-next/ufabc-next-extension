@@ -1,7 +1,8 @@
 import { watch } from "chokidar";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { cp, mkdir, readFile, writeFile } from "node:fs/promises";
 import { execSync } from "node:child_process";
 import { existsSync } from "node:fs";
+import { resolve } from "node:path";
 import { logger, PORT, isDev, resolvePath } from "./utils.js";
 
 const ensureDir = async (dir) => {
@@ -9,6 +10,12 @@ const ensureDir = async (dir) => {
     await mkdir(dir, { recursive: true });
   }
 };
+
+async function moveHTMLAssets() {
+  await cp(resolve("src/pages"), resolve("extension/dist/pages"), {
+    recursive: true,
+  });
+}
 
 // generate stub index.html files for dev entry
 async function stubHtml() {
@@ -45,6 +52,7 @@ function writeManifest() {
 }
 
 writeManifest();
+await moveHTMLAssets();
 
 if (isDev) {
   stubHtml();

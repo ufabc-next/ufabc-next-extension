@@ -10,17 +10,17 @@
     "dev:background": "yarn build:background --mode dev",
     "dev:web": "vite",
     "dev:js": "yarn run build:js --mode dev",
+    "dev:general": "yarn run build:general --mode dev",
     "build": "NODE_ENV=prod run-s clear build:web build:prepare build:background build:js",
     "build:prepare": "node tasks/prepare.js",
     "build:background": "vite build --config vite.config.background.js",
     "build:web": "vite build",
     "build:js": "vite build --config vite.config.content.js",
+    "build:general": "vite build --config vite.config.files.js",
     "clear": "rimraf --glob extension/dist extension/manifest.json extension.*"
   },
   "standard": {
-    "globals": [
-      "chrome"
-    ]
+    "globals": ["chrome"]
   },
   "devDependencies": {
     "@vitejs/plugin-vue2": "^2.3.1",
