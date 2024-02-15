@@ -11,11 +11,11 @@ const ensureDir = async (dir) => {
   }
 };
 
-async function moveHTMLAssets() {
-  await cp(resolve("src/pages"), resolve("extension/dist/pages"), {
-    recursive: true,
-  });
-}
+// async function moveHTMLAssets() {
+//   await cp(resolve("src/pages"), resolve("extension/dist/pages"), {
+//     recursive: true,
+//   });
+// }
 
 // generate stub index.html files for dev entry
 async function stubHtml() {
@@ -52,7 +52,7 @@ function writeManifest() {
 }
 
 writeManifest();
-await moveHTMLAssets();
+// await moveHTMLAssets();
 
 if (isDev) {
   stubHtml();
