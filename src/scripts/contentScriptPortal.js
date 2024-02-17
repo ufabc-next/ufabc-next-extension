@@ -15,7 +15,7 @@ const toast = new Toastify({
   text: `
     <div class='toast-loading-text' style='width: 250px'>
       <img src=${getURL(
-        "/assets/logo-white.svg"
+        "/assets/logo-white.svg",
       )} width="120" style="margin-bottom: 8px" />
       <p style="padding-bottom: 8px;">Atualizando suas informações...</p>\n\n
       <b>NÃO SAIA DESSA PÁGINA,</b>
@@ -44,19 +44,19 @@ if (isPortalAluno) {
   anchor.setAttribute("id", "app");
   document.body.append(anchor);
 
-  extensionUtils.injectStyle("styles/portal.css");
+  extensionUtils.injectStyle("./style.css");
 
   toastr.info(
-    "Clique em <a href='https://aluno.ufabc.edu.br/fichas_individuais' style='color: #FFF !important;'>Ficha Individual</a> para atualizar suas informações!"
+    "Clique em <a href='https://aluno.ufabc.edu.br/fichas_individuais' style='color: #FFF !important;'>Ficha Individual</a> para atualizar suas informações!",
   );
 } else if (isFichasIndividuais) {
-  extensionUtils.injectStyle("styles/portal.css");
+  // extensionUtils.injectStyle("styles/portal.css");
 
   toast.showToast();
 
   iterateTabelaCursosAndSaveToLocalStorage();
 } else if (isStudentFicha) {
-  extensionUtils.injectStyle("styles/portal.css");
+  // extensionUtils.injectStyle("styles/portal.css");
 }
 
 function iterateTabelaCursosAndSaveToLocalStorage() {
@@ -98,7 +98,7 @@ async function getFichaAluno(fichaAlunoUrl, nomeDoCurso, anoDaGrade) {
 
     const ra =
       /.*?(\d+).*/g.exec(
-        ficha_obj.find("#page").children("p")[2].innerText
+        ficha_obj.find("#page").children("p")[2].innerText,
       )[1] || "some ra";
 
     const storageRA = "ufabc-extension-ra-" + getEmailAluno();
@@ -108,32 +108,32 @@ async function getFichaAluno(fichaAlunoUrl, nomeDoCurso, anoDaGrade) {
       "https://aluno.ufabc.edu.br" + fichaAlunoUrl,
       {
         timeout: 60 * 1 * 1000, // 1 minute
-      }
+      },
     );
 
     const disciplinasCategory = ficha_obj.find(
-      ".quantidades:last-child tbody tr td"
+      ".quantidades:last-child tbody tr td",
     );
 
     // free
     const totalCreditsCoursedFree = toNumber(disciplinasCategory[2]);
     const totalPercentageCoursedFree = toNumber(disciplinasCategory[3]);
     const totalCreditsFree = Math.round(
-      (totalCreditsCoursedFree * 100) / totalPercentageCoursedFree
+      (totalCreditsCoursedFree * 100) / totalPercentageCoursedFree,
     );
 
     // mandatory
     const totalCreditsCoursedMandatory = toNumber(disciplinasCategory[7]);
     const totalPercentageCoursedMandatory = toNumber(disciplinasCategory[8]);
     const totalCreditsMandatory = Math.round(
-      (totalCreditsCoursedMandatory * 100) / totalPercentageCoursedMandatory
+      (totalCreditsCoursedMandatory * 100) / totalPercentageCoursedMandatory,
     );
 
     // limited
     const totalCreditsCoursedLimited = toNumber(disciplinasCategory[12]);
     const totalPercentageCoursedLimited = toNumber(disciplinasCategory[13]);
     const totalCreditsLimited = Math.round(
-      (totalCreditsCoursedLimited * 100) / totalPercentageCoursedLimited
+      (totalCreditsCoursedLimited * 100) / totalPercentageCoursedLimited,
     );
 
     await nextApi.post(
@@ -153,7 +153,7 @@ async function getFichaAluno(fichaAlunoUrl, nomeDoCurso, anoDaGrade) {
       },
       {
         timeout: 60 * 1 * 1000, // 1 minute
-      }
+      },
     );
 
     curso.ra = ra;
@@ -171,7 +171,7 @@ async function getFichaAluno(fichaAlunoUrl, nomeDoCurso, anoDaGrade) {
       text: `
         <div style="width: 228px; display: flex; align-items: end; margin-right: 12px;">
           <img style="margin-right: 16px;" width="32" height="32" src="${getURL(
-            "/assets/error.svg"
+            "/assets/error.svg",
           )}" />
             Não foi possível salvar seus dados, recarregue a página e aguarde.
         </div>`,
@@ -216,7 +216,7 @@ async function saveToLocalStorage(curso) {
     `Suas informações foram salvas! Disciplinas do curso do ${curso.curso}
       para o usuário ${getEmailAluno()}.
       `,
-    { timeout: 100000 }
+    { timeout: 100000 },
   );
 }
 

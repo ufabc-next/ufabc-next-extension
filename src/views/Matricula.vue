@@ -88,6 +88,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import $ from "jquery";
 import { ufabcMatricula } from "../services/UFABCMatricula";
@@ -99,11 +100,6 @@ export default {
   name: "App",
   data() {
     return {
-      showWarning: false,
-      selected: false,
-      cursadas: false,
-      teachers: false,
-
       shiftFilters: [
         {
           name: "Noturno",
@@ -140,7 +136,7 @@ export default {
     const currentUser = ufabcMatricula.currentUser();
 
     const currentStudent = students.find(
-      (student) => student.name == currentUser
+      (student) => student.name == currentUser,
     );
     if (currentStudent && currentStudent.lastUpdate) {
       const diff = Date.now() - currentStudent.lastUpdate;
@@ -155,10 +151,6 @@ export default {
   },
 
   methods: {
-    getUrl(path) {
-      return extensionUtils.chromeURL(path);
-    },
-
     applyFilter(params) {
       // if(this.shiftFilters.every(f => f.val == false) || this.campusFilters.every(f => f.val == false)) return
 
@@ -251,10 +243,10 @@ export default {
           ...item.map((d) => [d.disciplina_id.toString(), d]),
         ]);
         const htmlPop = await extensionUtils.fetchChromeURL(
-          "pages/matricula/fragments/professorPopover.html"
+          "pages/matricula/fragments/professorPopover.html",
         );
-        const corteHtml = await extensionUtils.fetchChromeUrl(
-          "pages/matricula/corte.html"
+        const corteHtml = await extensionUtils.fetchChromeURL(
+          "pages/matricula/corte.html",
         );
 
         $("table tr").each(function () {
