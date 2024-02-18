@@ -1,6 +1,5 @@
 import pkg from "../package.json" with { type: "json" };
-
-const isDev = process.env.NODE_ENV !== "prod";
+import { isDev } from "../tasks/utils.js";
 
 export async function getManifest() {
   // update this file to update this manifest.json
@@ -58,21 +57,17 @@ export async function getManifest() {
       default_popup: "dist/views/Popup/index.html",
     },
     content_security_policy: {
-      extension_pages: "script-src 'self'; object-src 'self'",
+      extension_pages: isDev
+        ? `script-src 'self' http://localhost:${port}; object-src 'self'`
+        : "script-src 'self'; object-src 'self'",
     },
     web_accessible_resources: [
       {
         resources: [
-          "components/*",
           "assets/*",
-          "lib/*",
           "pages/*",
-          "scripts/*",
-          "services/*",
-          "styles/*",
-          "utils/*",
-          "views/*",
-          "html/*",
+          "dist/contentScripts/style.css",
+          "dist/lib/*",
         ],
         matches: [
           "http://*.ufabc.edu.br/*",
@@ -84,12 +79,6 @@ export async function getManifest() {
       },
     ],
   };
-
-  if (isDev) {
-    manifest.content_security_policy = {
-      extension_pages: `script-src 'self' http://localhost:${5001}; object-src 'self'`,
-    };
-  }
 
   return manifest;
 }
