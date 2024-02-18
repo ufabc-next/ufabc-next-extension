@@ -1,5 +1,5 @@
 import pkg from "../package.json" with { type: "json" };
-import { isDev } from "../tasks/utils.js";
+import { isDev, PORT } from "../tasks/utils.js";
 
 export async function getManifest() {
   // update this file to update this manifest.json
@@ -58,7 +58,7 @@ export async function getManifest() {
     },
     content_security_policy: {
       extension_pages: isDev
-        ? `script-src 'self' http://localhost:${port}; object-src 'self'`
+        ? `script-src 'self' http://localhost:${PORT}; object-src 'self'`
         : "script-src 'self'; object-src 'self'",
     },
     web_accessible_resources: [
