@@ -1,16 +1,16 @@
-import toastr from "toastr";
+import "@/styles/portal.css";
+
 import $ from "jquery";
 import _ from "lodash";
-import { extensionUtils } from "../utils/extensionUtils";
-import { NextAPI } from "../services/NextAPI";
-import { NextStorage } from "../services/NextStorage";
 import Axios from "axios";
+import toastr from "toastr";
 import Toastify from "toastify-js";
 
+import { extensionUtils } from "@/utils/extensionUtils";
+import { NextAPI } from "@/services/NextAPI";
+import { NextStorage } from "@/services/NextStorage";
+
 const getURL = chrome.runtime.getURL ?? ((path) => path);
-
-const nextApi = new NextAPI().init();
-
 const toast = new Toastify({
   text: `
     <div class='toast-loading-text' style='width: 250px'>
@@ -33,6 +33,8 @@ const toast = new Toastify({
   },
 });
 
+const nextApi = new NextAPI().init();
+
 const basePortalAlunoURL = new URL(document.location.href);
 const isPortalAluno = basePortalAlunoURL.pathname === "/dados_pessoais";
 const isFichasIndividuais =
@@ -44,19 +46,19 @@ if (isPortalAluno) {
   anchor.setAttribute("id", "app");
   document.body.append(anchor);
 
-  extensionUtils.injectStyle("./style.css");
+  extensionUtils.injectStyle("dist/contentScripts/style.css");
 
   toastr.info(
     "Clique em <a href='https://aluno.ufabc.edu.br/fichas_individuais' style='color: #FFF !important;'>Ficha Individual</a> para atualizar suas informações!",
   );
 } else if (isFichasIndividuais) {
-  // extensionUtils.injectStyle("styles/portal.css");
+  extensionUtils.injectStyle("dist/contentScripts/style.css");
 
   toast.showToast();
 
   iterateTabelaCursosAndSaveToLocalStorage();
 } else if (isStudentFicha) {
-  // extensionUtils.injectStyle("styles/portal.css");
+  extensionUtils.injectStyle("dist/contentScripts/style.css");
 }
 
 function iterateTabelaCursosAndSaveToLocalStorage() {
