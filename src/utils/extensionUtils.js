@@ -27,9 +27,8 @@ class ExtensionUtils {
 
   injectStyle(link) {
     const styleTag = document.createElement("link");
-    styleTag.href = this.extensionURL(link);
-    styleTag.type = "text/css";
-    styleTag.rel = "stylesheet";
+    styleTag.setAttribute("rel", "stylesheet");
+    styleTag.setAttribute("href", chrome.runtime.getURL(link));
 
     document.head.appendChild(styleTag);
   }
