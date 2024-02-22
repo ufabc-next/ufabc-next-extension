@@ -6,10 +6,10 @@ import Vue from "vue";
 import "element-ui/lib/theme-chalk/index.css";
 import "vuetify/dist/vuetify.min.css";
 
-import { ufabcMatricula } from "../services/UFABCMatricula";
-import { setupStorage } from "../utils/setupStorage";
-import { extensionUtils } from "../utils/extensionUtils";
-import { NextStorage } from "../services/NextStorage";
+import { ufabcMatricula } from "@/services/UFABCMatricula";
+import { NextStorage } from "@/services/NextStorage";
+import { setupStorage } from "@/utils/setupStorage";
+import { extensionUtils } from "@/utils/extensionUtils";
 import Matricula from "./contentscripts/views/Matricula.vue";
 
 const isBrowser = typeof chrome != "undefined" && !!chrome.storage;
@@ -52,10 +52,9 @@ async function load() {
   );
 
   // add cross-domain local storage
-  extensionUtils.injectScript("lib/init.js");
-  extensionUtils.injectScript("lib/xdLocalStorage.min.js");
-
+  extensionUtils.injectScript("dist/lib/xdLocalStorage.min.js");
   extensionUtils.injectIframe("pages/iframe.html");
+  extensionUtils.injectScript("dist/lib/init.js");
 
   setupStorage();
   await import("./contentScriptPortal");
@@ -80,13 +79,14 @@ async function load() {
     const container = document.createElement("div");
     container.id = __NAME__;
     const root = document.createElement("div");
-    const styleEl = document.createElement("link");
+
     const shadowDOM =
       container.attachShadow?.({ mode: __DEV__ ? "open" : "closed" }) ||
       container;
-    styleEl.setAttribute("rel", "stylesheet");
-    styleEl.setAttribute("href", chrome.runtime.getURL("dist/style.css"));
-    shadowDOM.appendChild(styleEl);
+
+    shadowDOM.appendChild(
+      extensionUtils.injectStyle("dist/contentScripts/style.css"),
+    );
     shadowDOM.appendChild(root);
 
     container.setAttribute("id", "app");

@@ -3,16 +3,14 @@ import is from "is_js";
 
 class ExtensionUtils {
   IS_BROWSER = typeof chrome !== "undefined" && !!chrome.storage;
-  #EXTENSION_ID = this.IS_BROWSER
-    ? chrome.i18n.getMessage("@@extension_id")
-    : null;
+  #EXTENSION_ID = this.IS_BROWSER ? chrome.runtime.id : null;
 
   extensionURL(link) {
     if (this.#EXTENSION_ID) {
       const prefix = is.chrome() ? "chrome-extension://" : "moz-extension://";
       return `${prefix}${this.#EXTENSION_ID}/${link.replace(/^\//, "")}`;
     } else {
-      // fallback in case we cant detect the browser
+      // this fallback is necessary because of the `src/lib`
       return `https://next-extension.captain.sv.ufabcnext.com/static/${link}`;
     }
   }

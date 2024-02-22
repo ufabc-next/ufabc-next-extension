@@ -1,4 +1,4 @@
-import { extensionUtils } from "../utils/extensionUtils";
+import { extensionUtils } from "@/utils/extensionUtils";
 
 window.xdLocalStorage.init({
   /* required */
