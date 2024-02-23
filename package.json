@@ -19,16 +19,19 @@
     "build:web": "vite build",
     "build:js": "vite build --config vite.config.content.js",
     "build:general": "vite build --config vite.config.files.js",
-    "clear": "rimraf --glob extension/dist extension/manifest.json extension.*"
+    "clear": "rimraf --glob extension/dist extension/manifest.json extension.*",
+    "postinstall": "simple-git-hooks"
   },
   "devDependencies": {
     "@vitejs/plugin-vue2": "^2.3.1",
     "chokidar": "^3.6.0",
     "fs-extra": "^11.2.0",
     "kolorist": "^1.8.0",
+    "lint-staged": "^15.2.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
+    "simple-git-hooks": "^2.9.0",
     "unplugin-vue-components": "^0.26.0",
     "vite": "^5.1.1"
   },
@@ -49,5 +52,11 @@
     "vue2-highcharts": "^1.2.5",
     "vuedraggable": "^2.16.0",
     "vuetify": "1.2.6"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "prettier --fix"
   }
 }
