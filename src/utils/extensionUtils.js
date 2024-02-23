@@ -1,4 +1,4 @@
-import Axios from "axios";
+import { ofetch } from "ofetch";
 import is from "is_js";
 
 class ExtensionUtils {
@@ -20,7 +20,7 @@ class ExtensionUtils {
   }
 
   fetchChromeURL(url) {
-    return Axios.get(this.chromeURL(url));
+    return ofetch(this.chromeURL(url));
   }
 
   injectStyle(link) {

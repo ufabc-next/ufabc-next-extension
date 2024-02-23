@@ -2,7 +2,8 @@ import "@/styles/portal.css";
 
 import $ from "jquery";
 import _ from "lodash";
-import Axios from "axios";
+
+import { ofetch } from "ofetch";
 import toastr from "toastr";
 import Toastify from "toastify-js";
 
@@ -98,12 +99,9 @@ async function getFichaAluno(fichaAlunoUrl, nomeDoCurso, anoDaGrade) {
     const curso = {};
     const ficha_url = fichaAlunoUrl.replace(".json", "");
 
-    const { data: ficha } = await Axios.get(
-      `https://aluno.ufabc.edu.br${ficha_url}`,
-      {
-        timeout: STUDENT_FICHA_TIMEOUT,
-      },
-    );
+    const ficha = await ofetch(`https://aluno.ufabc.edu.br${ficha_url}`, {
+      timeout: STUDENT_FICHA_TIMEOUT,
+    });
 
     const parsedStudentFicha = $($.parseHTML(ficha));
 
@@ -117,7 +115,7 @@ async function getFichaAluno(fichaAlunoUrl, nomeDoCurso, anoDaGrade) {
     const storageRA = `ufabc-extension-ra-${emailAluno()}`;
     await NextStorage.setItem(storageRA, ra);
 
-    const { data: jsonFicha } = await Axios.get(
+    const { data: jsonFicha } = await ofetch(
       `https://aluno.ufabc.edu.br${fichaAlunoUrl}`,
       {
         timeout: STUDENT_FICHA_TIMEOUT,

@@ -1,4 +1,4 @@
-import Axios from "axios";
+import { ofetch } from "ofetch";
 import _ from "lodash";
 import $ from "jquery";
 
@@ -28,8 +28,8 @@ class UFABCMatricula {
 
   // fetch matriculas again
   async #getMatriculas() {
-    const disciplinas = await Axios.get(this.#matriculasURL);
-    return toJSON(disciplinas.data) || {};
+    const disciplinas = await ofetch(this.#matriculasURL);
+    return toJSON(disciplinas) || {};
   }
 
   // check if we need to update our localStorage of professors
