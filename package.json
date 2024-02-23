@@ -31,9 +31,7 @@
     "vite": "^5.1.1"
   },
   "dependencies": {
-    "autoprefixer": "^9.3.1",
     "axios": "^0.17.0",
-    "caprover": "^1.2.0",
     "compression": "^1.7.3",
     "cors": "^2.8.5",
     "element-ui": "^2.4.11",
@@ -42,19 +40,12 @@
     "is_js": "^0.9.0",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
-    "material-design-icons-iconfont": "^3.0.3",
     "mustache": "^3.0.0",
-    "postcss-import": "12.0.1",
-    "postcss-load-config": "1.0.0",
-    "postcss-loader": "1.0.0",
-    "postcss-url": "8.0.0",
     "toastify-js": "^1.9.0",
     "toastr": "^2.1.4",
     "vue": "2.7.0",
     "vue2-highcharts": "^1.2.5",
     "vuedraggable": "^2.16.0",
-    "vueify": "^9.4.1",
-    "vueify-insert-css": "^1.0.0",
     "vuetify": "1.2.6"
   }
 }
