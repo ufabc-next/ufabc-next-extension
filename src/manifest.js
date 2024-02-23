@@ -1,6 +1,5 @@
 import pkg from "../package.json" with { type: "json" };
-
-const isDev = process.env.NODE_ENV !== "prod";
+import { isDev, PORT } from "../tasks/utils.js";
 
 export async function getManifest() {
   // update this file to update this manifest.json
@@ -11,11 +10,11 @@ export async function getManifest() {
     version: pkg.version,
     description: pkg.description,
     icons: {
-      16: "./assets/icon-16.png",
-      128: "./assets/icon-128.png",
+      16: "assets/icon-16.png",
+      128: "assets/icon-128.png",
     },
     background: {
-      service_worker: "background.js",
+      service_worker: "dist/background/background.mjs",
     },
     permissions: ["storage"],
     host_permissions: [
@@ -28,7 +27,7 @@ export async function getManifest() {
     content_scripts: [
       {
         all_frames: true,
-        js: ["contentscript.js"],
+        js: ["dist/contentScripts/contentscript.global.js"],
         matches: [
           "http://*.ufabc.edu.br/*",
           "https://*.ufabc.edu.br/*",
@@ -55,24 +54,20 @@ export async function getManifest() {
         38: "assets/icon-38.png",
       },
       default_title: "Next Extension",
-      default_popup: "./views/Popup/index.html",
+      default_popup: "dist/views/Popup/index.html",
     },
     content_security_policy: {
-      extension_pages: "script-src 'self'; object-src 'self'",
+      extension_pages: isDev
+        ? `script-src 'self' http://localhost:${PORT}; object-src 'self'`
+        : "script-src 'self'; object-src 'self'",
     },
     web_accessible_resources: [
       {
         resources: [
-          "components/*",
           "assets/*",
-          "lib/*",
           "pages/*",
-          "scripts/*",
-          "services/*",
-          "styles/*",
-          "utils/*",
-          "views/*",
-          "html/*",
+          "dist/contentScripts/style.css",
+          "dist/lib/*",
         ],
         matches: [
           "http://*.ufabc.edu.br/*",
@@ -84,12 +79,6 @@ export async function getManifest() {
       },
     ],
   };
-
-  if (isDev) {
-    manifest.content_security_policy = {
-      extension_pages: `script-src 'self' http://localhost:${5001}; object-src 'self'`,
-    };
-  }
 
   return manifest;
 }
