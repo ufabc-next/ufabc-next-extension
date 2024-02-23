@@ -6,7 +6,7 @@ export async function getManifest() {
 
   const manifest = {
     manifest_version: 3,
-    name: pkg.displayName || pkg.name,
+    name: pkg.displayName,
     version: pkg.version,
     description: pkg.description,
     icons: {

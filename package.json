@@ -1,32 +1,37 @@
 {
   "name": "UFABC-Next-Extension",
-  "private": true,
+  "displayName": "UFABC Next",
   "version": "1.1.7",
+  "private": true,
+  "packageManager": "pnpm@8.15.3",
   "type": "module",
   "description": "Adiciona funcionalidades novas ao sistema de matricula da UFABC",
   "scripts": {
-    "dev": "yarn clear && NODE_ENV=dev run-p dev:*",
+    "dev": "pnpm clear && NODE_ENV=dev run-p dev:*",
     "dev:prepare": "node tasks/prepare.js",
-    "dev:background": "yarn build:background --mode dev",
+    "dev:background": "pnpm build:background --mode dev",
     "dev:web": "vite",
-    "dev:js": "yarn run build:js --mode dev",
-    "dev:general": "yarn run build:general --mode dev",
+    "dev:js": "pnpm build:js --mode dev",
+    "dev:general": "pnpm run build:general --mode dev",
     "build": "NODE_ENV=prod run-s clear build:web build:prepare build:background build:js",
     "build:prepare": "node tasks/prepare.js",
     "build:background": "vite build --config vite.config.background.js",
     "build:web": "vite build",
     "build:js": "vite build --config vite.config.content.js",
     "build:general": "vite build --config vite.config.files.js",
-    "clear": "rimraf --glob extension/dist extension/manifest.json extension.*"
+    "clear": "rimraf --glob extension/dist extension/manifest.json extension.*",
+    "postinstall": "simple-git-hooks"
   },
   "devDependencies": {
     "@vitejs/plugin-vue2": "^2.3.1",
     "chokidar": "^3.6.0",
     "fs-extra": "^11.2.0",
     "kolorist": "^1.8.0",
+    "lint-staged": "^15.2.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
+    "simple-git-hooks": "^2.9.0",
     "unplugin-vue-components": "^0.26.0",
     "vite": "^5.1.1"
   },
@@ -47,5 +52,11 @@
     "vue2-highcharts": "^1.2.5",
     "vuedraggable": "^2.16.0",
     "vuetify": "1.2.6"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "prettier --fix"
   }
 }
