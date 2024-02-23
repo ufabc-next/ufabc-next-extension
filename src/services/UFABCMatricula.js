@@ -36,7 +36,7 @@ class UFABCMatricula {
   // based when you did this last request
   async getProfessors() {
     try {
-      const { data: professors } = await this.#nextApi.get("/disciplinas");
+      const professors = await this.#nextApi("/disciplinas");
       await NextStorage.setItem("ufabc-extension-last", Date.now());
       await NextStorage.setItem("ufabc-extension-disciplinas", professors);
       return professors;

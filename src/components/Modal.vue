@@ -211,7 +211,7 @@
 
         this.loading = true
 
-        nextApi.get(`/disciplinas/${corteId}/kicks?aluno_id=${aluno_id}`).then((res) => {
+        nextApi(`/disciplinas/${corteId}/kicks?aluno_id=${aluno_id}`).then((res) => {
           this.kicksData = res
           this.resort()
           this.loading = false

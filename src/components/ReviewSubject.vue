@@ -173,7 +173,7 @@
         if(!subjectId) return
         this.loading = true
 
-        nextApi.get('/help/subjects/' + subjectId).then((res) => {
+        nextApi('/help/subjects/' + subjectId).then((res) => {
           this.help_data = res
           this.loading = false
 

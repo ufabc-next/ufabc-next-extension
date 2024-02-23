@@ -1,4 +1,4 @@
-import Axios from "axios";
+import { ofetch } from "ofetch";
 
 function resolveEndpoint(env) {
   return (
@@ -14,10 +14,6 @@ export class NextAPI {
   static #nextApiInstance;
   #baseURL = resolveEndpoint("prod");
   #REQUEST_TIMEOUT = 5_000;
-  #DEFAULT_HEADERS = {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  };
 
   static nextInstance() {
     if (!NextAPI.#nextApiInstance) {
@@ -28,10 +24,9 @@ export class NextAPI {
   }
 
   init() {
-    const nextApi = Axios.create({
+    const nextApi = ofetch.create({
       baseURL: this.#baseURL,
       timeout: this.#REQUEST_TIMEOUT,
-      headers: this.#DEFAULT_HEADERS,
     });
 
     return nextApi;

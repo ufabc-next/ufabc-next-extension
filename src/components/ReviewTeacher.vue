@@ -310,8 +310,7 @@ export default {
 
       this.loading = true;
 
-      nextApi
-        .get("/reviews/teachers/" + professorId)
+      nextApi("/reviews/teachers/" + professorId)
         .then((res) => {
           this.review = res;
           this.loading = false;
