@@ -123,14 +123,17 @@ class UFABCMatricula {
       delete user[i].cursadas;
     }
 
-    await this.#nextApi.post("/students", {
-      aluno_id: this.getAlunoId(),
-      cursos: user.map((info) => {
-        info.curso_id = this.#findIdForCurso(info.curso);
-        return info;
-      }),
-      ra,
-      login: this.currentUser(),
+    await this.#nextApi("/students", {
+      method: "POST",
+      body: {
+        aluno_id: this.getAlunoId(),
+        cursos: user.map((info) => {
+          info.curso_id = this.#findIdForCurso(info.curso);
+          return info;
+        }),
+        ra,
+        login: this.currentUser(),
+      },
     });
   }
 }

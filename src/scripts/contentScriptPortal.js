@@ -72,8 +72,8 @@ function iterateTabelaCursosAndSaveToLocalStorage() {
     const fichaAlunoURL = $(linhaCurso[1]).children("a").attr("href");
     const gradeYear = $(linhaCurso[2]).text();
 
-    const curso = await getFichaAluno(fichaAlunoURL, coursename, fichaAlunoURL);
-    console.log(curso);
+    const curso = await getFichaAluno(fichaAlunoURL, coursename, gradeYear);
+
     if (count === 0) {
       toast.hideToast();
     }
@@ -161,7 +161,9 @@ async function getFichaAluno(fichaAlunoUrl, nomeDoCurso, anoDaGrade) {
         totalCreditsMandatory + totalCreditsLimited + totalCreditsFree,
     };
 
-    await nextApi.post("/histories", userHistory, {
+    await nextApi("/histories", {
+      method: "POST",
+      body: userHistory,
       timeout: STUDENT_FICHA_TIMEOUT,
     });
 
