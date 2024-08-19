@@ -14,8 +14,8 @@ function convertDisciplina(d) {
 
   // handler horarios based on pdf or json
   if (obj.horarios && _.isObject(obj.horarios)) {
-    let startHours = _.get(obj.horarios, '[0].horas', []);
-    let afterNoon = ['14:00', '15:00', '16:00', '17:00'].some((hour) =>
+    const startHours = _.get(obj.horarios, '[0].horas', []);
+    const afterNoon = ['14:00', '15:00', '16:00', '17:00'].some((hour) =>
       startHours.includes(hour),
     );
   } else if (obj.horarios && _.isString(obj.horarios)) {
@@ -25,9 +25,9 @@ function convertDisciplina(d) {
 
     // only match if is even
     if (matched.length % 2 == 0) {
-      let hours = _.chunk(matched, 2);
+      const hours = _.chunk(matched, 2);
       hours.forEach((m) => {
-        let [start, end] = m.map((h) => parseInt(h.split(':')[0]));
+        const [start, end] = m.map((h) => Number.parseInt(h.split(':')[0]));
 
         if (start >= 12 && start < 18) {
           afterNoon = true;
@@ -49,7 +49,7 @@ function convertDisciplina(d) {
     splitted = splitted[0].split(/\s+/);
   }
 
-  splitted.map(function (item, i) {
+  splitted.map((item, i) => {
     obj.campus = obj.campus || extractCampus(item);
     obj.turno = obj.turno || (afterNoon ? 'tarde' : extractTurno(item));
 
@@ -57,7 +57,7 @@ function convertDisciplina(d) {
   });
 
   if (!obj.campus) {
-    let secondPath = splitted.slice(turnoIndex + 1, splitted.length);
+    const secondPath = splitted.slice(turnoIndex + 1, splitted.length);
     obj.campus = extractCampus(secondPath.join(breakRule));
   }
 
@@ -115,6 +115,4 @@ function extractCampus(d) {
   return null;
 }
 
-module.exports = {
-  convertDisciplina,
-};
+export { convertDisciplina };

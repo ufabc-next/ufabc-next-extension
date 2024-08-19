@@ -3,7 +3,7 @@ import Axios from 'axios';
 import is from 'is_js';
 import _ from 'lodash';
 
-module.exports = new ExtensionUtils();
+export default new ExtensionUtils();
 
 function ExtensionUtils() {
   // force initialization of xdLocalStorage
@@ -16,30 +16,26 @@ function ExtensionUtils() {
     ? chrome.i18n.getMessage('@@extension_id')
     : null;
 
-  var getChromeUrl = function (url) {
-    return getExtensionUrl(url);
-  };
+  var getChromeUrl = (url) => getExtensionUrl(url);
 
-  var fetchChromeUrl = async function (url, cb) {
-    return Axios.get(getChromeUrl(url));
-  };
+  var fetchChromeUrl = async (url, cb) => Axios.get(getChromeUrl(url));
 
-  var injectDiv = async function (link, el) {
-    let resp = await fetchChromeUrl(link);
+  var injectDiv = async (link, el) => {
+    const resp = await fetchChromeUrl(link);
     const data = resp.data;
 
     var div = document.createElement('div');
     div.innerHTML = data;
 
     if (el) {
-      let parent = el.parentNode;
+      const parent = el.parentNode;
       parent.insertBefore(div, el.nextSibling);
     } else {
       document.body.appendChild(div);
     }
   };
 
-  var injectStyle = function (link) {
+  var injectStyle = (link) => {
     var s = document.createElement('link');
     s.href = getExtensionUrl(link);
     s.type = 'text/css';
@@ -48,14 +44,14 @@ function ExtensionUtils() {
     document.head.appendChild(s);
   };
 
-  var injectScript = function (link) {
+  var injectScript = (link) => {
     var s = document.createElement('script');
     s.src = getExtensionUrl(link);
 
     (document.head || document.documentElement).appendChild(s);
   };
 
-  var injectIframe = function (link) {
+  var injectIframe = (link) => {
     var s = document.createElement('iframe');
     s.src = getExtensionUrl(link);
     s.setAttribute('style', 'display: none;');
@@ -115,9 +111,7 @@ function ExtensionUtils() {
     }
   }
 
-  var getFile = async function (link) {
-    return (await Axios.get(getChromeUrl(link))).data;
-  };
+  var getFile = async (link) => (await Axios.get(getChromeUrl(link))).data;
 
   return {
     getChromeUrl,

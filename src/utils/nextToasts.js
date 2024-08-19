@@ -79,9 +79,4 @@ const successToast = Toastify({
   },
 });
 
-module.exports = {
-  errorToast,
-  redirectToast,
-  successToast,
-  processingToast,
-};
+export { errorToast, redirectToast, successToast, processingToast };

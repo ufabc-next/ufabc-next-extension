@@ -2,7 +2,7 @@
   "name": "UFABC Next",
   "short_name": "UFABC Next",
   "description": "Adiciona funcionalidades novas ao sistema de matricula da UFABC",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "manifest_version": 3,
   "minimum_chrome_version": "88.0.0",
   "icons": {

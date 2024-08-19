@@ -64,6 +64,4 @@ function setupStorage() {
   });
 }
 
-module.exports = {
-  setupStorage,
-};
+export { setupStorage };

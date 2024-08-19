@@ -7,7 +7,7 @@ import Utils from './extensionUtils';
 
 const nextApi = NextAPI();
 
-module.exports = new Matricula();
+export default new Matricula();
 
 function Matricula() {
   const MATRICULAS_URL =

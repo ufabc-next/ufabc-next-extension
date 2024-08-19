@@ -114,8 +114,4 @@ function scrapeHomepage() {
   };
 }
 
-module.exports = {
-  normalizeDiacritics,
-  scrapeGradesConsulting,
-  scrapeHomepage,
-};
+export { normalizeDiacritics, scrapeGradesConsulting, scrapeHomepage };

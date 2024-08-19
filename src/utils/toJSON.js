@@ -12,6 +12,6 @@ const toJSON = (payload, max) => {
   return json;
 };
 
-module.exports = {
+export default {
   toJSON,
 };

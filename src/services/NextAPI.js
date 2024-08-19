@@ -25,6 +25,4 @@ function NextAPI() {
   return nextAPI;
 }
 
-module.exports = {
-  NextAPI,
-};
+export { NextAPI };

@@ -124,9 +124,7 @@ watch(props.subjectInfo.subject, async () => {
 
 // i miss optional chaining :(
 const subject = computed(() => {
-  return helpData.value && helpData.value.subject && helpData.value.subject.name 
-    ? helpData.value.subject.name 
-    : '';
+  return helpData.value?.subject?.name || ''
 });
 
 
