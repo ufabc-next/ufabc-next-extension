@@ -4,13 +4,12 @@ import _ from 'lodash';
 import Utils from '../utils/extensionUtils';
 import { NextAPI } from '../services/NextAPI';
 import Axios from 'axios';
-// const { ofetch } = await import('ofetch')
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 const loading = require('../images/loading.svg');
 const errorSVG = require('../images/error.svg');
 const logoWhite = require('../images/logo-white.svg');
-const { ofetch } = await import('ofetch');
+import { ofetch } from 'ofetch';
 
 const nextApi = NextAPI();
 

@@ -6,8 +6,7 @@ import {
   successToast,
 } from '../utils/nextToasts';
 import Axios from 'axios';
-// import { ofetch } from 'ofetch';
-const { ofetch } = await import('ofetch');
+import { ofetch } from 'ofetch';
 
 const sigaaURL = new URL(document.location.href);
 const isDiscentesPath = sigaaURL.pathname.includes('discente.jsf');

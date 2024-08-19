@@ -99,7 +99,7 @@ gulp.task('scripts', (cb) => {
                 },
               },
               {
-                test: /\.m?js$/,
+                test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 options: {
@@ -107,11 +107,13 @@ gulp.task('scripts', (cb) => {
                 },
               },
               {
-                test: /\.m?js$/,
-                loader: 'babel-loader',
-                exclude: /node_modules/,
-                options: {
-                  presets: ['@babel/preset-env'],
+                test: /\.mjs$/,
+                include: /node_modules/,
+                use: {
+                  loader: 'babel-loader',
+                  options: {
+                    presets: ['@babel/preset-env'],
+                  },
                 },
               },
               {
