@@ -25,11 +25,13 @@
     "lint": "biome lint ./src"
   },
   "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.0",
+    "@babel/plugin-transform-runtime": "^7.24.7",
+    "@babel/preset-env": "^7.21.0",
+    "@babel/register": "^7.24.6",
     "@biomejs/biome": "^1.8.1",
-    "babel-cli": "6.x.x",
-    "babel-core": "6.x.x",
-    "babel-loader": "7.x.x",
-    "babel-preset-env": "1.7.0",
+    "babel-loader": "8.x.x",
     "chai": "4.x.x",
     "chromereload": "0.x.x",
     "debounce": "1.x.x",
@@ -62,7 +64,6 @@
   "dependencies": {
     "autoprefixer": "^9.3.1",
     "axios": "^0.17.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
     "caprover": "^1.2.0",
     "compression": "^1.7.3",
     "cors": "^2.8.5",
