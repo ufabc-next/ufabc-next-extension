@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import Axios from 'axios';
+import { ofetch } from 'ofetch';
 import is from 'is_js';
 import _ from 'lodash';
 
@@ -11,20 +11,20 @@ function ExtensionUtils() {
   //   iframeUrl: getExtensionUrl("pages/iframe.html"),
   // });
 
-  const IS_BROWSER = typeof chrome != 'undefined' && !!chrome.storage;
+  const IS_BROWSER = typeof chrome !== 'undefined' && !!chrome.storage;
   const EXTENSION_ID = IS_BROWSER
     ? chrome.i18n.getMessage('@@extension_id')
     : null;
 
-  var getChromeUrl = (url) => getExtensionUrl(url);
+  const getChromeUrl = (url) => getExtensionUrl(url);
 
-  var fetchChromeUrl = async (url, cb) => Axios.get(getChromeUrl(url));
+  const fetchChromeUrl = async (url) => ofetch(getChromeUrl(url));
 
-  var injectDiv = async (link, el) => {
-    const resp = await fetchChromeUrl(link);
-    const data = resp.data;
+  const injectDiv = async (link, el) => {
+    const data = await fetchChromeUrl(link);
+    console.log('data Utils', data);
 
-    var div = document.createElement('div');
+    const div = document.createElement('div');
     div.innerHTML = data;
 
     if (el) {
@@ -35,8 +35,8 @@ function ExtensionUtils() {
     }
   };
 
-  var injectStyle = (link) => {
-    var s = document.createElement('link');
+  const injectStyle = (link) => {
+    const s = document.createElement('link');
     s.href = getExtensionUrl(link);
     s.type = 'text/css';
     s.rel = 'stylesheet';
@@ -44,21 +44,21 @@ function ExtensionUtils() {
     document.head.appendChild(s);
   };
 
-  var injectScript = (link) => {
-    var s = document.createElement('script');
+  const injectScript = (link) => {
+    const s = document.createElement('script');
     s.src = getExtensionUrl(link);
 
     (document.head || document.documentElement).appendChild(s);
   };
 
-  var injectIframe = (link) => {
-    var s = document.createElement('iframe');
+  const injectIframe = (link) => {
+    const s = document.createElement('iframe');
     s.src = getExtensionUrl(link);
     s.setAttribute('style', 'display: none;');
     (document.body || document.documentElement).appendChild(s);
   };
 
-  var storage = {
+  const storage = {
     setItem(key, value) {
       return new Promise((resolve, reject) => {
         try {
@@ -105,13 +105,13 @@ function ExtensionUtils() {
   function getExtensionUrl(link) {
     if (EXTENSION_ID) {
       const prefix = is.chrome() ? 'chrome-extension://' : 'moz-extension://';
-      return prefix + EXTENSION_ID + '/' + link.replace(/^\//, '');
-    } else {
-      return `https://next-extension.captain.sv.ufabcnext.com/static/${link}`;
+      return `${prefix + EXTENSION_ID}/${link.replace(/^\//, '')}`;
     }
+
+    return `https://next-extension.captain.sv.ufabcnext.com/static/${link}`;
   }
 
-  var getFile = async (link) => (await Axios.get(getChromeUrl(link))).data;
+  const getFile = async (link) => await ofetch(getChromeUrl(link));
 
   return {
     getChromeUrl,

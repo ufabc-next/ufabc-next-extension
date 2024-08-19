@@ -6,7 +6,7 @@
     width="800px"
     top="2vh"
     class="ufabc-element-dialog mt-1">
-    <div v-if='loading || (helpData && helpData.specific && helpData.specific.length)'
+    <div v-if='loading || helpData?.specific?.length'
       style="min-height: 200px"
       v-loading="loading"
       element-loading="Carregando">
@@ -122,7 +122,7 @@ watch(props.subjectInfo.subject, async () => {
   await setupSubjectStats()
 })
 
-// i miss optional chaining :(
+
 const subject = computed(() => {
   return helpData.value?.subject?.name || ''
 });
@@ -163,7 +163,7 @@ function closeDialog() {
 }
 
 async function setupSubjectStats() {
-  const subjectId = _.get(props.subjectInfo, 'subject.id', '');
+  const subjectId = props.subjectInfo?.subject?.id || '';
   if (!subjectId) {
     return;
   }

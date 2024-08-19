@@ -3,7 +3,6 @@ import $ from 'jquery';
 import _ from 'lodash';
 import Utils from '../utils/extensionUtils';
 import { NextAPI } from '../services/NextAPI';
-import Axios from 'axios';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 const loading = require('../images/loading.svg');
@@ -106,7 +105,7 @@ async function getFichaAluno(fichaAlunoUrl, nomeDoCurso, anoDaGrade) {
     const ficha = await ofetch(`https://aluno.ufabc.edu.br${ficha_url}`, {
       timeout: 60 * 1 * 1000, // 1 minute
     });
-    const ficha_obj = $($.parseHTML(ficha.data));
+    const ficha_obj = $($.parseHTML(ficha));
     const info = ficha_obj.find('.coeficientes tbody tr td');
 
     const ra =
@@ -153,7 +152,7 @@ async function getFichaAluno(fichaAlunoUrl, nomeDoCurso, anoDaGrade) {
       '/histories',
       {
         ra: ra,
-        disciplinas: jsonFicha.data,
+        disciplinas: jsonFicha,
         curso: nomeDoCurso,
         grade: anoDaGrade,
 
@@ -175,7 +174,7 @@ async function getFichaAluno(fichaAlunoUrl, nomeDoCurso, anoDaGrade) {
     curso.ca = toNumber(info[2]);
     curso.quads = ficha_obj.find('.ano_periodo').length;
 
-    curso.cursadas = jsonFicha.data;
+    curso.cursadas = jsonFicha;
 
     return curso;
   } catch (err) {

@@ -1,9 +1,9 @@
-import Axios from 'axios';
 import { NextAPI } from '../services/NextAPI';
 import toJSON from './toJSON';
 import _ from 'lodash';
 import $ from 'jquery';
 import Utils from './extensionUtils';
+import { ofetch } from 'ofetch';
 
 const nextApi = NextAPI();
 
@@ -45,8 +45,10 @@ function Matricula() {
 
   // fetch matriculas again
   async function getEnrollments() {
-    const disciplinas = await Axios.get(MATRICULAS_URL);
-    return toJSON(disciplinas.data) || {};
+    const disciplinas = await ofetch(MATRICULAS_URL, {
+      parseResponse: toJSON,
+    });
+    return disciplinas || {};
   }
 
   // get total number of matriculas that was made until now

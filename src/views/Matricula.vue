@@ -132,12 +132,12 @@ onMounted(async () => {
     const currentUser = matriculaUtils.currentUser();
 
     let student = null;
-    
+
     if (students && Array.isArray(students)) {
       student = students.find((student) => student.name === currentUser);
     }
 
-    if (student && student.lastUpdate) {
+    if (student?.lastUpdate) {
       const diff = Date.now() - student.lastUpdate;
       const MAX_UPDATE_DIFF = 1000 * 60 * 60 * 24 * 7; // 7 days
       if (diff > MAX_UPDATE_DIFF) {
@@ -203,9 +203,9 @@ async function changeTeachers() {
 
     el.insertAdjacentHTML(
       'beforeend',
-      Mustache.render(htmlPop.data, component),
+      Mustache.render(htmlPop, component),
     );
-    corteEl.insertAdjacentHTML('beforeend', corteHtml.data);
+    corteEl.insertAdjacentHTML('beforeend', corteHtml);
   }
 }
 

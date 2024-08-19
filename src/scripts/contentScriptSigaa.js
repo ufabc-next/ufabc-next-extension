@@ -5,7 +5,6 @@ import {
   processingToast,
   successToast,
 } from '../utils/nextToasts';
-import Axios from 'axios';
 import { ofetch } from 'ofetch';
 
 const sigaaURL = new URL(document.location.href);
