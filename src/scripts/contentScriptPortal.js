@@ -4,11 +4,13 @@ import _ from 'lodash';
 import Utils from '../utils/extensionUtils';
 import { NextAPI } from '../services/NextAPI';
 import Axios from 'axios';
+// const { ofetch } = await import('ofetch')
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 const loading = require('../images/loading.svg');
 const errorSVG = require('../images/error.svg');
 const logoWhite = require('../images/logo-white.svg');
+const { ofetch } = await import('ofetch');
 
 const nextApi = NextAPI();
 
@@ -102,7 +104,7 @@ async function getFichaAluno(fichaAlunoUrl, nomeDoCurso, anoDaGrade) {
     var curso = {};
     var ficha_url = fichaAlunoUrl.replace('.json', '');
 
-    const ficha = await Axios.get('https://aluno.ufabc.edu.br' + ficha_url, {
+    const ficha = await ofetch(`https://aluno.ufabc.edu.br${ficha_url}`, {
       timeout: 60 * 1 * 1000, // 1 minute
     });
     const ficha_obj = $($.parseHTML(ficha.data));
@@ -116,8 +118,8 @@ async function getFichaAluno(fichaAlunoUrl, nomeDoCurso, anoDaGrade) {
     const storageRA = 'ufabc-extension-ra-' + getEmailAluno();
     await Utils.storage.setItem(storageRA, ra);
 
-    const jsonFicha = await Axios.get(
-      'https://aluno.ufabc.edu.br' + fichaAlunoUrl,
+    const jsonFicha = await ofetch(
+      `https://aluno.ufabc.edu.br${fichaAlunoUrl}`,
       {
         timeout: 60 * 1 * 1000, // 1 minute
       },
@@ -208,7 +210,7 @@ function getEmailAluno() {
 }
 
 function toNumber(el) {
-  return parseFloat(el.innerText.replace(',', '.'));
+  return Number.parseFloat(el.innerText.replace(',', '.'));
 }
 
 async function saveToLocalStorage(curso) {

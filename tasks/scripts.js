@@ -8,6 +8,7 @@ import plumber from 'gulp-plumber';
 import livereload from 'gulp-livereload';
 import args from './lib/args';
 import rename from 'gulp-rename';
+import TerserPlugin from 'terser-webpack-plugin-legacy';
 
 const { VueLoaderPlugin } = require('vue-loader');
 const { VueTemplateCompiler } = require('vue-template-compiler');
@@ -57,9 +58,7 @@ gulp.task('scripts', (cb) => {
             }),
             new VueLoaderPlugin(),
             new ExtractTextPlugin('style.css'),
-          ].concat(
-            args.production ? [new webpack.optimize.UglifyJsPlugin()] : [],
-          ),
+          ].concat(args.production ? [new TerserPlugin()] : []),
           module: {
             rules: [
               {
@@ -100,7 +99,15 @@ gulp.task('scripts', (cb) => {
                 },
               },
               {
-                test: /\.js$/,
+                test: /\.m?js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                options: {
+                  presets: ['@babel/preset-env'],
+                },
+              },
+              {
+                test: /\.m?js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 options: {

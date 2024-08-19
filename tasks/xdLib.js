@@ -1,6 +1,7 @@
 import gulp from 'gulp';
 import webpack from 'webpack';
 import gulpWebpack from 'webpack-stream';
+import TerserPlugin from 'terser-webpack-plugin-legacy';
 import { log, colors } from 'gulp-util';
 import named from 'vinyl-named';
 import rename from 'gulp-rename';
@@ -23,11 +24,19 @@ gulp.task('xdLib', () => {
           output: {
             filename: '[name].js',
           },
-          plugins: [new webpack.optimize.UglifyJsPlugin()],
+          plugins: [new TerserPlugin()],
           module: {
             rules: [
               {
-                test: /\.js$/,
+                test: /\.m?js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                options: {
+                  presets: ['@babel/preset-env'],
+                },
+              },
+              {
+                test: /\.m?js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 options: {

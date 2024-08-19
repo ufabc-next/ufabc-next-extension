@@ -3,9 +3,11 @@ import {
   errorToast,
   redirectToast,
   processingToast,
-  successToast
+  successToast,
 } from '../utils/nextToasts';
 import Axios from 'axios';
+// import { ofetch } from 'ofetch';
+const { ofetch } = await import('ofetch');
 
 const sigaaURL = new URL(document.location.href);
 const isDiscentesPath = sigaaURL.pathname.includes('discente.jsf');
@@ -20,20 +22,24 @@ if (
   toast.showToast();
 }
 
+async function consume(history) {
+  try {
+    await ofetch('https://api.v2.ufabcnext.com/v2/histories/sigaa', {
+      method: 'POST',
+      body: history,
+      timeout: 60 * 1 * 1000, // 1 minute
+    });
+    successToast.showToast();
+  } catch (error) {
+    console.log(error);
+    errorToast.showToast();
+  } finally {
+    setTimeout(() => processingToast.hideToast(), 1000);
+  }
+}
+
 if (isDiscentesPath && document.contains(document.querySelector('.notas'))) {
   processingToast.showToast();
   const studentHistory = scrapeGradesConsulting();
-  // todo: fazer o endpoint
-  Axios.post(
-    'https://api.v2.ufabcnext.com/v2/histories/sigaa',
-    studentHistory,
-    {
-      timeout: 60 * 1 * 1000, // 1 minute
-    },
-  ).then(() => {
-    successToast.showToast()
-  })
-  .catch(() => {
-    errorToast.showToast();
-  }).finally(() => setTimeout(() => processingToast.hideToast(), 1000));
+  consume(studentHistory);
 }
