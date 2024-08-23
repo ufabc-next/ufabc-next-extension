@@ -218,7 +218,7 @@ export default {
       this.loading = true;
 
       nextApi
-        .get(`/disciplinas/${corteId}/kicks?aluno_id=${aluno_id}`)
+        .get(`/components/${corteId}/kicks?aluno_id=${aluno_id}`)
         .then((res) => {
           this.kicksData = res;
           this.resort();
