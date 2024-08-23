@@ -21,8 +21,8 @@ function Matricula() {
   // check if we need to update our localStorage of professors
   // based when you did this last request
   async function updateProfessors(data) {
-    let lastTime = data;
-    let timeDiff = (Date.now() - lastTime) / (1000 * 60);
+    const lastTime = data;
+    const timeDiff = (Date.now() - lastTime) / (1000 * 60);
 
     await getProfessors();
     if (!lastTime || timeDiff > 0.2) {
@@ -33,7 +33,7 @@ function Matricula() {
   // fetch professors url and save them into localStorage
   async function getProfessors() {
     try {
-      let { data: professors } = await nextApi.get('/disciplinas');
+      const { data: professors } = await nextApi.get('/components');
       await Utils.storage.setItem('ufabc-extension-last', Date.now());
       await Utils.storage.setItem('ufabc-extension-disciplinas', professors);
       return professors;
@@ -83,7 +83,7 @@ function Matricula() {
       if (inside.indexOf(test) != -1) {
         var regex = /matriculas\[(.*)\]/;
         var match = regex.exec(inside);
-        toReturn = parseInt(match[1]);
+        toReturn = Number.parseInt(match[1]);
       }
     });
 
@@ -103,9 +103,7 @@ function Matricula() {
     // check which row matches the name passed
     const course = $('#curso')
       .children()
-      .filter(function (i, item) {
-        return name == _.camelCase($(item).text());
-      })[0];
+      .filter((i, item) => name == _.camelCase($(item).text()))[0];
 
     return $(course).val();
   }
@@ -135,7 +133,7 @@ function Matricula() {
 
     await nextApi.post('/students', {
       aluno_id: getAlunoId(),
-      cursos: user.map(function (info) {
+      cursos: user.map((info) => {
         info.curso_id = findIdForCurso(info.curso);
         return info;
       }),
