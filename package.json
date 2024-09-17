@@ -68,7 +68,7 @@
     "cors": "^2.8.5",
     "css-loader": "^1.0.1",
     "element-ui": "^2.4.11",
-    "express": "^4.16.4",
+    "express": "^4.20.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "gulp-cssimport": "^6.0.1",
     "gulp-rename": "^1.2.2",
