@@ -205,9 +205,8 @@ async function changeTeachers() {
     if (component.subject) {
       subjectEl.setAttribute('subjectId', component.subjectId);
     }
-    const data = { disciplina: component }
-    const rendered = Mustache.render(htmlPop.data, data)
-
+   
+    const rendered = Mustache.render(htmlPop.data, { component })
     el.insertAdjacentHTML(
       'beforeend',
       rendered,

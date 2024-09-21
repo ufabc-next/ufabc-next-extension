@@ -112,7 +112,7 @@ function ExtensionUtils() {
       return prefix + EXTENSION_ID + '/' + link.replace(/^\//, '');
     }
       
-    return `https://s3.sa-east-1.amazonaws.com/ufabcnext.com/ufabc-next-extension/next-extension/${link}`;
+    return `https://s3.sa-east-1.amazonaws.com/ufabcnext.com/ufabc-next-extension/${link}`;
   }
 
   var getFile = async function (link) {
