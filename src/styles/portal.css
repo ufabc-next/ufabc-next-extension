@@ -13,19 +13,23 @@
   padding-bottom: 16px;
   border-radius: 14px;
 }
+
 .toast-loading > .toast-loading-text {
   display: block;
   width: 250px;
 }
+
 .toast-loading > .toast-loading-text > p {
   margin: 0px;
 }
+
 .toast-loading > img {
   width: 48px;
   height: 48px;
   margin: 0px;
   margin-right: 10px;
 }
+
 .toast-error-container {
   display: flex;
   padding-top: 18px;
