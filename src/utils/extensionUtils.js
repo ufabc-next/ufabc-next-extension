@@ -110,9 +110,9 @@ function ExtensionUtils() {
     if (EXTENSION_ID) {
       const prefix = is.chrome() ? 'chrome-extension://' : 'moz-extension://';
       return prefix + EXTENSION_ID + '/' + link.replace(/^\//, '');
-    } else {
-      return `https://next-extension.captain.sv.ufabcnext.com/static/${link}`;
     }
+      
+    return `https://s3.sa-east-1.amazonaws.com/ufabcnext.com/ufabc-next-extension/next-extension/${link}`;
   }
 
   var getFile = async function (link) {
