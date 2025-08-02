@@ -170,6 +170,26 @@ export async function syncHistory(data: SyncHistory) {
   return syncedStudent;
 }
 
+export async function sendResults(results: { sessionToken: string | null }) {
+  if (!results.sessionToken) {
+    console.warn('[sendResults] Token de sessão inválido, abortando envio.');
+    return;
+  }
+
+  const headers = new Headers();
+  headers.set('session-id', results.sessionToken);
+
+  try {
+    const response = await nextService<{ msg: string }>("/components", {
+      method: 'POST',
+      headers
+    });
+
+  } catch (error) {
+    console.error('[sendResults] Erro ao enviar dados:', error);
+  }
+}
+
 export async function getSubjectReviews(subjectId: string) {
   const reviews = await nextService<SubjectReview>(`/entities/subjects/reviews/${subjectId}`)
   return reviews;
