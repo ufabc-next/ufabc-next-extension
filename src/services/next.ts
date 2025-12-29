@@ -142,7 +142,7 @@ export type MatriculaStudent =  {
 }
 
 export const nextService = ofetch.create({
-  baseURL: import.meta.env.VITE_UFABC_NEXT_URL,
+  baseURL: "https://api.v2.ufabcnext.com",
 });
 
 
@@ -181,11 +181,11 @@ export async function sendResults(results: { sessionToken: string | null, sessKe
   headers.set('sess-key', results.sessKey);
 
   try {
-    const response = await nextService<{ msg: string }>("/components", {
+    const response = await nextService<{ msg: string }>("/v2/components/archives", {
       method: 'POST',
       headers
     });
-
+    return response;
   } catch (error) {
     console.error('[sendResults] Erro ao enviar dados:', error);
   }
